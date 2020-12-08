@@ -21,3 +21,5 @@ jobs:
       run: ./mvnw clean install -Dmaven.test.skip=true
     - name: Test
       run: ./mvnw test
+    - name: SonarCloud Scan
+      uses: SonarSource/sonarcloud-github-action@v1.4
