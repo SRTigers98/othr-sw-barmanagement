@@ -18,7 +18,7 @@ public abstract class Drink {
   private Double  percentageOfAlcohol;
   private Double  price;
 
-  public Drink() {
+  protected Drink() {
     this.id = UUID.randomUUID();
   }
 

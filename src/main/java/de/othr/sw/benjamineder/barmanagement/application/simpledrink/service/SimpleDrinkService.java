@@ -29,9 +29,9 @@ public class SimpleDrinkService {
 
   public SimpleDrink deleteSimpleDrink(UUID drinkID) {
     Assert.notNull(drinkID, "ID of SimpleDrink must not be null!");
-    var drinkToDelete = repository.findById(drinkID);
-    repository.delete(drinkToDelete.orElseThrow(
-        () -> new IllegalArgumentException(String.format("SimpleDrink with ID %s does not exist!", drinkID))));
-    return drinkToDelete.get();
+    var drinkToDelete = repository.findById(drinkID).orElseThrow(
+        () -> new IllegalArgumentException(String.format("SimpleDrink with ID %s does not exist!", drinkID)));
+    repository.delete(drinkToDelete);
+    return drinkToDelete;
   }
 }
