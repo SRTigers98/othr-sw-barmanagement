@@ -1,6 +1,5 @@
-package de.othr.sw.benjamineder.barmanagement.application.simpledrink.entity;
+package de.othr.sw.benjamineder.barmanagement.application.drink.entity;
 
-import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
 import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

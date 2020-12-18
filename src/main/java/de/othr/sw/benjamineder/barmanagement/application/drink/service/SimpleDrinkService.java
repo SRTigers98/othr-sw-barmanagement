@@ -1,7 +1,7 @@
-package de.othr.sw.benjamineder.barmanagement.application.simpledrink.service;
+package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 
-import de.othr.sw.benjamineder.barmanagement.application.simpledrink.dao.SimpleDrinkRepository;
-import de.othr.sw.benjamineder.barmanagement.application.simpledrink.entity.SimpleDrink;
+import de.othr.sw.benjamineder.barmanagement.application.drink.dao.SimpleDrinkRepository;
+import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
 import java.util.List;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;

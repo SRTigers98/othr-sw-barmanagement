@@ -7,8 +7,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import de.othr.sw.benjamineder.barmanagement.application.simpledrink.dao.SimpleDrinkRepository;
-import de.othr.sw.benjamineder.barmanagement.application.simpledrink.entity.SimpleDrink;
+import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
+import de.othr.sw.benjamineder.barmanagement.application.drink.dao.SimpleDrinkRepository;
+import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
