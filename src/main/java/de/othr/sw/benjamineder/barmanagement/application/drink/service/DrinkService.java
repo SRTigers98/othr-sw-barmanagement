@@ -8,7 +8,7 @@ import org.springframework.util.Assert;
 
 public abstract class DrinkService<T extends Drink> {
 
-  private final JpaRepository<T, UUID> drinkRepository;
+  protected final JpaRepository<T, UUID> drinkRepository;
 
   protected DrinkService(JpaRepository<T, UUID> drinkRepository) {
     this.drinkRepository = drinkRepository;
