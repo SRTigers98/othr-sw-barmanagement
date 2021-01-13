@@ -7,9 +7,9 @@ import static org.mockito.Mockito.doNothing;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.drink.dao.SimpleDrinkRepository;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
+import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -33,7 +33,7 @@ class SimpleDrinkServiceTest {
 
     when(simpleDrinkRepository.findAll()).thenReturn(drinks);
 
-    var result = tested.getSimpleDrinks();
+    var result = tested.getDrinks();
 
     assertThat(result, is(drinks));
   }
@@ -45,14 +45,14 @@ class SimpleDrinkServiceTest {
 
     when(simpleDrinkRepository.save(drink)).thenReturn(drinkFromDB);
 
-    var result = tested.addOrUpdateSimpleDrink(drink);
+    var result = tested.addOrUpdateDrink(drink);
 
     assertThat(result, is(drinkFromDB));
   }
 
   @Test
   void addOrUpdateSimpleDrinkNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> tested.addOrUpdateSimpleDrink(null));
+    assertThrows(IllegalArgumentException.class, () -> tested.addOrUpdateDrink(null));
   }
 
   @Test
@@ -64,7 +64,7 @@ class SimpleDrinkServiceTest {
     when(simpleDrinkRepository.findById(id)).thenReturn(Optional.of(drink));
     doNothing().when(simpleDrinkRepository).delete(drink);
 
-    var result = tested.deleteSimpleDrink(id);
+    var result = tested.deleteDrink(id);
 
     assertThat(result, is(drink));
   }
@@ -75,11 +75,11 @@ class SimpleDrinkServiceTest {
 
     when(simpleDrinkRepository.findById(id)).thenReturn(Optional.empty());
 
-    assertThrows(IllegalArgumentException.class, () -> tested.deleteSimpleDrink(id));
+    assertThrows(IllegalArgumentException.class, () -> tested.deleteDrink(id));
   }
 
   @Test
   void deleteSimpleDrinkNullTest() {
-    assertThrows(IllegalArgumentException.class, () -> tested.deleteSimpleDrink(null));
+    assertThrows(IllegalArgumentException.class, () -> tested.deleteDrink(null));
   }
 }

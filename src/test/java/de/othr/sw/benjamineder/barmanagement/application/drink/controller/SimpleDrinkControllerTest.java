@@ -27,7 +27,7 @@ class SimpleDrinkControllerTest {
   void getSimpleDrinksTest() {
     var drinks = List.of(mock(SimpleDrink.class), mock(SimpleDrink.class), mock(SimpleDrink.class));
 
-    when(simpleDrinkService.getSimpleDrinks()).thenReturn(drinks);
+    when(simpleDrinkService.getDrinks()).thenReturn(drinks);
 
     var result = tested.getSimpleDrinks();
 
@@ -39,7 +39,7 @@ class SimpleDrinkControllerTest {
     var drink = mock(SimpleDrink.class);
     var savedDrink = mock(SimpleDrink.class);
 
-    when(simpleDrinkService.addOrUpdateSimpleDrink(drink)).thenReturn(savedDrink);
+    when(simpleDrinkService.addOrUpdateDrink(drink)).thenReturn(savedDrink);
 
     var result = tested.putSimpleDrink(drink);
 
@@ -51,7 +51,7 @@ class SimpleDrinkControllerTest {
     var drinkId = UUID.randomUUID();
     var deletedDrink = mock(SimpleDrink.class);
 
-    when(simpleDrinkService.deleteSimpleDrink(drinkId)).thenReturn(deletedDrink);
+    when(simpleDrinkService.deleteDrink(drinkId)).thenReturn(deletedDrink);
 
     var result = tested.deleteSimpleDrink(drinkId);
 

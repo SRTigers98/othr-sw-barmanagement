@@ -26,16 +26,16 @@ public class SimpleDrinkController {
 
   @GetMapping(produces = "application/json")
   public List<SimpleDrink> getSimpleDrinks() {
-    return simpleDrinkService.getSimpleDrinks();
+    return simpleDrinkService.getDrinks();
   }
 
   @PutMapping(produces = "application/json", consumes = "application/json")
   public SimpleDrink putSimpleDrink(@RequestBody SimpleDrink simpleDrink) {
-    return simpleDrinkService.addOrUpdateSimpleDrink(simpleDrink);
+    return simpleDrinkService.addOrUpdateDrink(simpleDrink);
   }
 
   @DeleteMapping(produces = "application/json")
   public SimpleDrink deleteSimpleDrink(@RequestParam("id") UUID drinkId) {
-    return simpleDrinkService.deleteSimpleDrink(drinkId);
+    return simpleDrinkService.deleteDrink(drinkId);
   }
 }
