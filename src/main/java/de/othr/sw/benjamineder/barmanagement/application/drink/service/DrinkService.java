@@ -19,7 +19,7 @@ public abstract class DrinkService<T extends Drink> {
   }
 
   public T addOrUpdateDrink(T drink) {
-    Assert.notNull(drink, "SimpleDrink must not be null!");
+    Assert.notNull(drink, "Drink must not be null!");
     return drinkRepository.save(drink);
   }
 
