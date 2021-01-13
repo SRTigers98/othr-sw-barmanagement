@@ -1,4 +1,4 @@
-package de.othr.sw.benjamineder.barmanagement.application.simpledrink.service;
+package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -9,7 +9,6 @@ import static org.mockito.Mockito.when;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.dao.SimpleDrinkRepository;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
-import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -36,6 +35,27 @@ class SimpleDrinkServiceTest {
     var result = tested.getDrinks();
 
     assertThat(result, is(drinks));
+  }
+
+  @Test
+  void getDrinkByIdTest() {
+    var drinkId = UUID.randomUUID();
+    var drink = mock(SimpleDrink.class);
+
+    when(simpleDrinkRepository.findById(drinkId)).thenReturn(Optional.of(drink));
+
+    var result = tested.getDrinkById(drinkId);
+
+    assertThat(result, is(drink));
+  }
+
+  @Test
+  void getDrinkByIdExceptionTest() {
+    var drinkId = UUID.randomUUID();
+
+    when(simpleDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
+
+    assertThrows(IllegalArgumentException.class, () -> tested.getDrinkById(drinkId));
   }
 
   @Test

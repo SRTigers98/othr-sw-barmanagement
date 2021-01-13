@@ -17,7 +17,7 @@ public class ComplexDrinkService extends DrinkService<ComplexDrink> {
 
   public DrinkRecipe getRecipeForDrink(UUID drinkId) {
     return drinkRepository.findById(drinkId)
-                          .orElseThrow(() -> new IllegalArgumentException(String.format("Drink with ID %s does not exist!", drinkId)))
+                          .orElseThrow(() -> this.drinkIdNotFoundException(drinkId))
                           .getRecipe();
   }
 }

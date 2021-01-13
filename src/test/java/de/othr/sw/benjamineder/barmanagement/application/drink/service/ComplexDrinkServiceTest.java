@@ -39,6 +39,27 @@ class ComplexDrinkServiceTest {
   }
 
   @Test
+  void getDrinkByIdTest() {
+    var drinkId = UUID.randomUUID();
+    var drink = mock(ComplexDrink.class);
+
+    when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.of(drink));
+
+    var result = tested.getDrinkById(drinkId);
+
+    assertThat(result, is(drink));
+  }
+
+  @Test
+  void getDrinkByIdExceptionTest() {
+    var drinkId = UUID.randomUUID();
+
+    when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
+
+    assertThrows(IllegalArgumentException.class, () -> tested.getDrinkById(drinkId));
+  }
+
+  @Test
   void addOrUpdateComplexDrinkTest() {
     var drink = mock(ComplexDrink.class);
     var drinkFromDB = mock(ComplexDrink.class);
