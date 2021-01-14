@@ -13,7 +13,7 @@ import lombok.EqualsAndHashCode;
 @Inheritance(strategy = InheritanceType.JOINED)
 @Data
 @EqualsAndHashCode
-public abstract class Drink {
+public class Drink {
 
   @Id
   private UUID    id;
