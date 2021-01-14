@@ -60,6 +60,18 @@ class ComplexDrinkControllerTest {
   }
 
   @Test
+  void getComplexDrinkByIdTest() {
+    var drinkId = UUID.randomUUID();
+    var drink = mock(ComplexDrink.class);
+
+    when(complexDrinkService.getDrinkById(drinkId)).thenReturn(drink);
+
+    var result = tested.getComplexDrinkById(drinkId);
+
+    assertThat(result, is(drink));
+  }
+
+  @Test
   void getRecipeForDrinkTest() {
     var drinkId = UUID.randomUUID();
     var drinkRecipe = mock(DrinkRecipe.class);

@@ -57,4 +57,16 @@ class SimpleDrinkControllerTest {
 
     assertThat(result, is(deletedDrink));
   }
+
+  @Test
+  void getSimpleDrinkByIdTest() {
+    var drinkId = UUID.randomUUID();
+    var drink = mock(SimpleDrink.class);
+
+    when(simpleDrinkService.getDrinkById(drinkId)).thenReturn(drink);
+
+    var result = tested.getSimpleDrinkById(drinkId);
+
+    assertThat(result, is(drink));
+  }
 }
