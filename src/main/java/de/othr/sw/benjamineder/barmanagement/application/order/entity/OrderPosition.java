@@ -15,7 +15,7 @@ public class OrderPosition {
 
   @Id
   private UUID    id;
-  @ManyToOne
+  @ManyToOne(optional = false)
   private Drink   drink;
   private Integer quantity;
 
