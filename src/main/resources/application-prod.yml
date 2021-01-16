@@ -8,6 +8,3 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-othr:
-  auth: http://im-codd.oth-regensburg.de:8931/
-  warehouse: http://im-codd.oth-regensburg.de:8950/

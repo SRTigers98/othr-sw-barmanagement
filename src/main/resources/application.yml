@@ -1,0 +1,4 @@
+othr:
+  auth: http://im-codd.oth-regensburg.de:8931/
+  warehouse: http://im-codd.oth-regensburg.de:8950/
+  drinksondemand: http://im-codd.oth-regensburg.de:8947/
