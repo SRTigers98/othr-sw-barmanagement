@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    url: jdbc:h2:file:./.data/barmanagement
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: test123
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+othr:
+  auth: https://sw-auth.boomer41.net/
+  warehouse: https://sw-warehouse.boomer41.net/

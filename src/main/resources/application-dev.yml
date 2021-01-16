@@ -8,3 +8,6 @@ spring:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
+othr:
+  auth: https://sw-auth.boomer41.net/
+  warehouse: https://sw-warehouse.boomer41.net/
