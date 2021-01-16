@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>SW Barmanagement - Admin-Console</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+  <link rel="stylesheet" th:href="@{/styles/default.css}">
+</head>
+<body>
+<header th:insert="fragments/admin_navbar :: admin_navbar"></header>
+<main class="container-fluid">
+  <form th:object="${drink}" th:action="@{'/admin/simple/' + *{id}}" method="post">
+    <div class="mb-3">
+      <label for="id" class="form-label">ID</label>
+      <input type="text" class="form-control" id="id" disabled th:field="*{id}">
+    </div>
+    <div class="mb-3">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" th:field="*{name}">
+    </div>
+    <div class="mb-3">
+      <label for="size" class="form-label">Name</label>
+      <input type="number" class="form-control" id="size" th:field="*{size}">
+      <div id="sizeHelp" class="form-text" style="color: white">Size in milliliters</div>
+    </div>
+    <div class="mb-3">
+      <label for="percentageOfAlcohol" class="form-label">Percentage of Alcohol</label>
+      <input type="number" step="0.1" class="form-control" id="percentageOfAlcohol" th:field="*{percentageOfAlcohol}">
+    </div>
+    <div class="mb-3">
+      <label for="price" class="form-label">Price</label>
+      <input type="number" step="0.1" class="form-control" id="price" th:field="*{price}">
+    </div>
+    <div class="mb-3">
+      <label for="brand" class="form-label">Brand</label>
+      <input type="text" class="form-control" id="brand" th:field="*{brand}">
+    </div>
+    <div class="mb-3">
+      <label>Type</label>
+      <div class="form-check" th:each="type: ${types}">
+        <input class="form-check-input" type="radio" th:id="${type}" th:field="*{type}" th:value="${type}">
+        <label class="form-check-label" th:for="${type}" th:text="${type}"></label>
+      </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Save</button>
+  </form>
+  <br>
+  <div class="alert alert-success alert-dismissible fade show" role="alert" th:hidden="!${saved}">
+    <p>Saved successfully!</p>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+        crossorigin="anonymous"></script>
+</body>
+</html>
