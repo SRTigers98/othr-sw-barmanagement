@@ -1,4 +1,6 @@
 othr:
-  auth: http://im-codd.oth-regensburg.de:8931/
-  warehouse: http://im-codd.oth-regensburg.de:8950/
-  drinksondemand: http://im-codd.oth-regensburg.de:8947/
+  auth: http://im-codd.oth-regensburg.de:8931
+  warehouse:
+    host: http://im-codd.oth-regensburg.de:8950
+    customer-number: 00000001
+  drinksondemand: http://im-codd.oth-regensburg.de:8947

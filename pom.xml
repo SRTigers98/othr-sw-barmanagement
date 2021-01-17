@@ -14,6 +14,17 @@
   <name>sw-barmanagement</name>
   <description>Barmanagement project for SW 2020/21</description>
 
+  <repositories>
+    <repository>
+      <id>oth-sw</id>
+      <url>https://repo-sw.boomer41.net/releases</url>
+    </repository>
+    <repository>
+      <id>oth-sw-snapshots</id>
+      <url>https://repo-sw.boomer41.net/snapshots</url>
+    </repository>
+  </repositories>
+
   <properties>
     <java.version>14</java.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -48,6 +59,11 @@
       <groupId>com.h2database</groupId>
       <artifactId>h2</artifactId>
       <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>de.othr.kef41719</groupId>
+      <artifactId>swwarehousedtos</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
     </dependency>
 
     <dependency>
