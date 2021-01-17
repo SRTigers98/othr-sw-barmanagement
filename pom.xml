@@ -110,6 +110,11 @@
             </goals>
           </execution>
         </executions>
+        <configuration>
+          <excludes>
+            <exclude>**/application/web/**</exclude>
+          </excludes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
