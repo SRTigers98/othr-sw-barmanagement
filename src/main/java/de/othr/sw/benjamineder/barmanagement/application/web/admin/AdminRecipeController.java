@@ -21,6 +21,9 @@ import static java.util.stream.Collectors.toMap;
 @RequestMapping("/admin/complex/{drinkId}/recipe")
 public class AdminRecipeController {
 
+  private static final String DRINK_ID = "drinkId";
+  private static final String SAVED    = "saved";
+
   private final ComplexDrinkService complexDrinkService;
   private final SimpleDrinkService  simpleDrinkService;
 
@@ -34,9 +37,9 @@ public class AdminRecipeController {
   public String adminComplexDrinkRecipe(@PathVariable("drinkId") UUID drinkId, Model model) {
     var recipe = complexDrinkService.getRecipeForDrink(drinkId)
                                     .orElseGet(DrinkRecipe::new);
-    model.addAttribute("drinkId", drinkId)
+    model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("recipe", recipe)
-         .addAttribute("saved", false);
+         .addAttribute(SAVED, false);
     return "admin_recipe";
   }
 
@@ -48,9 +51,9 @@ public class AdminRecipeController {
                        .ifPresent(recipe::setComponents);
     drink.setRecipe(recipe);
     var savedRecipe = complexDrinkService.addOrUpdateDrink(drink).getRecipe();
-    model.addAttribute("drinkId", drinkId)
+    model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("recipe", savedRecipe)
-         .addAttribute("saved", true);
+         .addAttribute(SAVED, true);
     return "admin_recipe";
   }
 
@@ -59,9 +62,9 @@ public class AdminRecipeController {
     var recipeComponents = complexDrinkService.getRecipeForDrink(drinkId)
                                               .map(DrinkRecipe::getComponents);
     var components = getComponentsMap(recipeComponents);
-    model.addAttribute("drinkId", drinkId)
+    model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("model", new ComponentsModel(components))
-         .addAttribute("saved", false);
+         .addAttribute(SAVED, false);
     return "admin_recipe_components";
   }
 
@@ -92,9 +95,9 @@ public class AdminRecipeController {
     var drink = complexDrinkService.getDrinkById(drinkId);
     drink.setRecipe(recipe);
     complexDrinkService.addOrUpdateDrink(drink);
-    model.addAttribute("drinkId", drinkId)
+    model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("model", componentsModel)
-         .addAttribute("saved", true);
+         .addAttribute(SAVED, true);
     return "admin_recipe_components";
   }
 
