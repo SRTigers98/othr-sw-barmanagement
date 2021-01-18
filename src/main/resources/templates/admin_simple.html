@@ -13,7 +13,7 @@
   <form th:object="${drink}" th:action="@{'/admin/simple/' + *{id}}" method="post">
     <div class="mb-3">
       <label for="id" class="form-label">ID</label>
-      <input type="text" class="form-control" id="id" disabled th:field="*{id}">
+      <input type="text" class="form-control" id="id" readonly th:field="*{id}">
     </div>
     <div class="mb-3">
       <label for="name" class="form-label">Name</label>

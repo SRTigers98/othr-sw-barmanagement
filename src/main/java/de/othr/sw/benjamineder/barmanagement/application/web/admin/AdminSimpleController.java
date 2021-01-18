@@ -24,15 +24,15 @@ public class AdminSimpleController {
     this.simpleDrinkService = simpleDrinkService;
   }
 
-  @GetMapping(path = "/{id}")
-  public String adminSimpleDrinkForm(@PathVariable("id") UUID drinkId, Model model) {
+  @GetMapping(path = "/{drinkId}")
+  public String adminSimpleDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
     model.addAttribute("drink", simpleDrinkService.getDrinkById(drinkId))
          .addAttribute("types", SimpleDrinkType.values())
          .addAttribute("saved", false);
     return "admin_simple";
   }
 
-  @PostMapping(path = "/{id}")
+  @PostMapping(path = "/{drinkId}")
   public String adminEditSimpleDrink(@ModelAttribute SimpleDrink drink, Model model) {
     var savedDrink = simpleDrinkService.addOrUpdateDrink(drink);
     model.addAttribute("drink", savedDrink)

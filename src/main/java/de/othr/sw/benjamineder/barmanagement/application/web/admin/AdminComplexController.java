@@ -32,13 +32,13 @@ public class AdminComplexController {
     return ADMIN_COMPLEX_SITE;
   }
 
-  @GetMapping(path = "/{id}")
-  public String adminComplexDrinkForm(@PathVariable("id") UUID drinkId, Model model) {
+  @GetMapping(path = "/{drinkId}")
+  public String adminComplexDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
     configureAdminComplexModel(model, complexDrinkService.getDrinkById(drinkId), false, false);
     return ADMIN_COMPLEX_SITE;
   }
 
-  @PostMapping(path = "/{id}")
+  @PostMapping(path = "/{drinkId}")
   public String adminEditComplexDrink(@ModelAttribute ComplexDrink complexDrink, Model model) {
     complexDrinkService.getRecipeForDrink(complexDrink.getId())
                        .ifPresent(complexDrink::setRecipe);
