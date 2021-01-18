@@ -3,6 +3,7 @@ package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 import de.othr.sw.benjamineder.barmanagement.application.drink.dao.ComplexDrinkRepository;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrink;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.DrinkRecipe;
+import java.util.Optional;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,9 +16,8 @@ public class ComplexDrinkService extends DrinkService<ComplexDrink> {
     super(complexDrinkRepository);
   }
 
-  public DrinkRecipe getRecipeForDrink(UUID drinkId) {
+  public Optional<DrinkRecipe> getRecipeForDrink(UUID drinkId) {
     return drinkRepository.findById(drinkId)
-                          .orElseThrow(() -> this.drinkIdNotFoundException(drinkId))
-                          .getRecipe();
+                          .map(ComplexDrink::getRecipe);
   }
 }

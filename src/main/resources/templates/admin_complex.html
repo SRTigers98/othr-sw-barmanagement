@@ -10,7 +10,7 @@
 <body>
 <header th:insert="fragments/admin_navbar :: admin_navbar"></header>
 <main class="container-fluid">
-  <form th:object="${drink}" th:action="@{'/admin/simple/' + *{id}}" method="post">
+  <form th:object="${drink}" th:action="@{'/admin/complex/' + *{id}}" method="post">
     <div class="mb-3">
       <label for="id" class="form-label">ID</label>
       <input type="text" class="form-control" id="id" disabled th:field="*{id}">
@@ -33,17 +33,16 @@
       <input type="number" step="0.1" min="0" class="form-control" id="price" th:field="*{price}">
     </div>
     <div class="mb-3">
-      <label for="brand" class="form-label">Brand</label>
-      <input type="text" class="form-control" id="brand" th:field="*{brand}">
-    </div>
-    <div class="mb-3">
       <label>Type</label>
       <div class="form-check" th:each="type: ${types}">
         <input class="form-check-input" type="radio" th:id="${type}" th:field="*{type}" th:value="${type}">
         <label class="form-check-label" th:for="${type}" th:text="${type}"></label>
       </div>
     </div>
-    <button type="submit" class="btn btn-primary">Save</button>
+    <div>
+      <button type="submit" class="btn btn-primary">Save</button>
+      <a th:href="'/admin/complex/' + *{id} + '/recipe'" th:hidden="${newDrink}" class="btn btn-secondary">Edit Recipe</a>
+    </div>
   </form>
   <br>
   <div class="alert alert-success alert-dismissible fade show" role="alert" th:hidden="!${saved}">

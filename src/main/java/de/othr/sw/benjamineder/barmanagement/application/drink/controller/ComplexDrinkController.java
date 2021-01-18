@@ -48,6 +48,7 @@ public class ComplexDrinkController {
 
   @GetMapping(path = "/{id}/recipe", produces = "application/json")
   public DrinkRecipe getRecipeForDrink(@PathVariable("id") UUID drinkId) {
-    return complexDrinkService.getRecipeForDrink(drinkId);
+    return complexDrinkService.getRecipeForDrink(drinkId)
+                              .orElse(null);
   }
 }

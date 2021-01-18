@@ -115,7 +115,8 @@ class ComplexDrinkServiceTest {
 
     var result = tested.getRecipeForDrink(drinkId);
 
-    assertThat(result, is(drinkRecipe));
+    assertThat(result.isPresent(), is(true));
+    assertThat(result.get(), is(drinkRecipe));
   }
 
   @Test
@@ -124,6 +125,8 @@ class ComplexDrinkServiceTest {
 
     when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 
-    assertThrows(IllegalArgumentException.class, () -> tested.getRecipeForDrink(drinkId));
+    var result = tested.getRecipeForDrink(drinkId);
+
+    assertThat(result.isPresent(), is(false));
   }
 }
