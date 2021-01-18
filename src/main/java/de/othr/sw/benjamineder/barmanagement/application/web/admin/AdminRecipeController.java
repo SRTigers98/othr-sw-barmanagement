@@ -1,26 +1,33 @@
 package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 
+import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
+import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.DrinkRecipe;
-import java.util.UUID;
+import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.RecipeComponent;
+import de.othr.sw.benjamineder.barmanagement.application.web.model.ComponentsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toMap;
 
 @Controller
 @RequestMapping("/admin/complex/{drinkId}/recipe")
 public class AdminRecipeController {
 
   private final ComplexDrinkService complexDrinkService;
+  private final SimpleDrinkService  simpleDrinkService;
 
   @Autowired
-  public AdminRecipeController(ComplexDrinkService complexDrinkService) {
+  public AdminRecipeController(ComplexDrinkService complexDrinkService, SimpleDrinkService simpleDrinkService) {
     this.complexDrinkService = complexDrinkService;
+    this.simpleDrinkService = simpleDrinkService;
   }
 
   @GetMapping
@@ -45,5 +52,57 @@ public class AdminRecipeController {
          .addAttribute("recipe", savedRecipe)
          .addAttribute("saved", true);
     return "admin_recipe";
+  }
+
+  @GetMapping(path = "/components")
+  public String adminRecipeComponents(@PathVariable("drinkId") UUID drinkId, Model model) {
+    var recipeComponents = complexDrinkService.getRecipeForDrink(drinkId)
+                                              .map(DrinkRecipe::getComponents);
+    var components = getComponentsMap(recipeComponents);
+    model.addAttribute("drinkId", drinkId)
+         .addAttribute("model", new ComponentsModel(components))
+         .addAttribute("saved", false);
+    return "admin_recipe_components";
+  }
+
+  private Map<String, Integer> getComponentsMap(java.util.Optional<java.util.List<RecipeComponent>> recipeComponents) {
+    return simpleDrinkService.getDrinks().stream()
+                             .collect(toMap(SimpleDrink::getName,
+                                            simpleDrink -> recipeComponents
+                                                .flatMap(compList -> compList.stream()
+                                                                             .filter(comp -> comp.getComponent().getId()
+                                                                                                 .equals(simpleDrink.getId()))
+                                                                             .findFirst())
+                                                .map(RecipeComponent::getQuantity)
+                                                .orElse(0)));
+  }
+
+  @PostMapping(path = "/components")
+  public String adminEditRecipeComponents(@PathVariable("drinkId") UUID drinkId,
+                                          @ModelAttribute ComponentsModel componentsModel,
+                                          Model model) {
+    var components = componentsModel.getComponents().entrySet().stream()
+                                    .map(this::getRecipeComponentFromEntry)
+                                    .filter(comp -> comp.getQuantity() > 0)
+                                    .collect(Collectors.toList());
+    var recipe = complexDrinkService.getRecipeForDrink(drinkId)
+                                    .orElseGet(DrinkRecipe::new);
+    recipe.getComponents().clear();
+    recipe.getComponents().addAll(components);
+    var drink = complexDrinkService.getDrinkById(drinkId);
+    drink.setRecipe(recipe);
+    complexDrinkService.addOrUpdateDrink(drink);
+    model.addAttribute("drinkId", drinkId)
+         .addAttribute("model", componentsModel)
+         .addAttribute("saved", true);
+    return "admin_recipe_components";
+  }
+
+  private RecipeComponent getRecipeComponentFromEntry(Map.Entry<String, Integer> entry) {
+    var drink = simpleDrinkService.getDrinkByName(entry.getKey());
+    var recipeComponent = new RecipeComponent();
+    recipeComponent.setComponent(drink.orElseThrow());
+    recipeComponent.setQuantity(entry.getValue());
+    return recipeComponent;
   }
 }

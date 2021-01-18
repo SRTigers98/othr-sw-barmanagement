@@ -1,13 +1,15 @@
 package de.othr.sw.benjamineder.barmanagement.application.recipe.entity;
 
-import java.util.List;
-import java.util.UUID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -22,5 +24,6 @@ public class DrinkRecipe {
 
   public DrinkRecipe() {
     this.id = UUID.randomUUID();
+    this.components = new ArrayList<>();
   }
 }

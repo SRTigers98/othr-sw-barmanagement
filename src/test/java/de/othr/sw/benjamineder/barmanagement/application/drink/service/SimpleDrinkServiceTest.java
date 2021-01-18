@@ -1,22 +1,21 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.sw.benjamineder.barmanagement.application.drink.dao.SimpleDrinkRepository;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class SimpleDrinkServiceTest {
@@ -101,5 +100,30 @@ class SimpleDrinkServiceTest {
   @Test
   void deleteSimpleDrinkNullTest() {
     assertThrows(IllegalArgumentException.class, () -> tested.deleteDrink(null));
+  }
+
+  @Test
+  void getDrinkByNameTest() {
+    var name = "Pan Galactic Gargle Blaster";
+
+    var panGalacticGargleBlaster = mock(SimpleDrink.class);
+
+    when(simpleDrinkRepository.findByName(name)).thenReturn(Optional.of(panGalacticGargleBlaster));
+
+    var result = tested.getDrinkByName(name);
+
+    assertThat(result.isPresent(), is(true));
+    assertThat(result.get(), is(panGalacticGargleBlaster));
+  }
+
+  @Test
+  void getDrinkByNameNotFoundTest() {
+    var name = "xxx";
+
+    when(simpleDrinkRepository.findByName(name)).thenReturn(Optional.empty());
+
+    var result = tested.getDrinkByName(name);
+
+    assertThat(result.isPresent(), is(false));
   }
 }

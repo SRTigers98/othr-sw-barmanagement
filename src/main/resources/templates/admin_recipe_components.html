@@ -10,39 +10,37 @@
 <body>
 <header th:insert="fragments/admin_navbar :: admin_navbar"></header>
 <main class="container-fluid">
-  <form th:object="${recipe}" th:action="@{'/admin/complex/' + ${drinkId} + '/recipe'}" method="post">
-    <div class="mb-3">
-      <label for="id" class="form-label">Recipe ID</label>
-      <input type="text" class="form-control" id="id" readonly th:field="${recipe.id}">
-    </div>
-    <div class="mb-3">
-      <label for="notes" class="form-label">Notes</label>
-      <input type="text" class="form-control" id="notes" th:field="${recipe.notes}">
-    </div>
-
+  <h2>Recipe Components</h2>
+  <form th:action="@{'/admin/complex/' + ${drinkId} + '/recipe/components'}" method="post">
+    <table class="table table-dark table-striped table-responsive">
+      <caption hidden>Recipe Components</caption>
+      <thead>
+      <tr>
+        <th scope="col">
+          <label for="name" class="form-label">Component Name</label>
+        </th>
+        <th scope="col">
+          <label for="quantity" class="form-label">Quantity</label>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="comp: ${model.components}">
+        <td>
+          <input type="text" class="form-control" id="name" readonly th:value="${comp.key}">
+        </td>
+        <td>
+          <input type="number" min="0" class="form-control" id="quantity"
+                 th:field="${model.components[__${comp.key}__]}">
+        </td>
+      </tr>
+      </tbody>
+    </table>
     <div>
       <button type="submit" class="btn btn-primary">Save</button>
-      <a th:href="'/admin/complex/' + ${drinkId}" class="btn btn-secondary">Back</a>
+      <a th:href="'/admin/complex/' + ${drinkId} + '/recipe'" class="btn btn-secondary">Back</a>
     </div>
   </form>
-  <br>
-  <h2>Recipe Components</h2>
-  <table class="table table-dark table-striped table-responsive">
-    <caption hidden>Recipe Components</caption>
-    <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Quantity</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="component: ${recipe.components}">
-      <td th:text="${component.getComponent().getName()}"></td>
-      <td th:text="${component.getQuantity()}"></td>
-    </tr>
-    </tbody>
-  </table>
-  <a th:href="'/admin/complex/' + ${drinkId} + '/recipe/components'" class="btn btn-primary">Edit</a>
   <br>
   <div class="alert alert-success alert-dismissible fade show" role="alert" th:hidden="!${saved}">
     <p>Saved successfully!</p>
