@@ -1,10 +1,12 @@
 spring:
   datasource:
-    url: jdbc:h2:file:./.data/barmanagement
-    driver-class-name: org.h2.Driver
-    username: sa
-    password: test123
+    url: jdbc:mysql://im-knuth.oth-regensburg.de:3306/sw_benjamin_eder
+    driver-class-name: com.mysql.jdbc.Driver
+    username: sw_benjamin_eder
+    password: edb43740
+    hikari:
+      maximum-pool-size: 5
   jpa:
-    database-platform: org.hibernate.dialect.H2Dialect
+    database-platform: org.hibernate.dialect.MySQL5Dialect
     hibernate:
       ddl-auto: update
