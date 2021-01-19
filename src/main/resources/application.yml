@@ -3,4 +3,4 @@ othr:
   warehouse:
     host: http://im-codd.oth-regensburg.de:8950
     customer-number: 00000001
-  drinksondemand: http://im-codd.oth-regensburg.de:8947
+  drinks-on-demand: http://im-codd.oth-regensburg.de:8947

@@ -12,10 +12,18 @@ public class RestTemplateConfig {
 
   @Value("${othr.warehouse.host}")
   private String warehouseURL;
+  @Value("${othr.drinks-on-demand}")
+  private String drinksOnDemandURL;
 
   @Bean
   @Qualifier("warehouse")
   public RestTemplate warehouseRestTemplate() {
     return new RestTemplateBuilder().rootUri(warehouseURL).build();
+  }
+
+  @Bean
+  @Qualifier("drinksOnDemand")
+  public RestTemplate drinksOnDemandRestTemplate() {
+    return new RestTemplateBuilder().rootUri(drinksOnDemandURL).build();
   }
 }
