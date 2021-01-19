@@ -1,20 +1,7 @@
 package de.othr.sw.benjamineder.barmanagement.application.rest.warehouse;
 
-import static org.hamcrest.CoreMatchers.allOf;
-import static org.hamcrest.CoreMatchers.hasItems;
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.kef41719.swwarehousedtos.OrderDto;
-import java.util.Map;
-import java.util.UUID;
+import de.othr.kef41719.swwarehousedtos.StockDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,6 +13,18 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.Map;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.*;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasEntry;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.eq;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class WarehouseServiceTest {
@@ -87,5 +86,21 @@ class WarehouseServiceTest {
     var result = tested.orderFromWarehouse(orderPositions);
 
     assertThat(result, is(false));
+  }
+
+  @Test
+  void getDrinkStocksTest() {
+    var stock = mock(StockDto.class);
+    var stocks = new StockDto[]{ stock, stock, stock };
+
+    when(restTemplate.getForEntity(String.format("/api/stock?customernumber=%s", CUSTOMER_NUMBER), StockDto[].class))
+        .thenReturn(ResponseEntity.ok(stocks));
+    when(stock.getArticleId()).thenReturn("42", "99", "123");
+    when(stock.getQty()).thenReturn(10, 20, 50);
+
+    var result = tested.getDrinkStocks();
+
+    assertThat(result, is(notNullValue()));
+    assertThat(result, allOf(hasEntry("42", 10), hasEntry("99", 20), hasEntry("123", 50)));
   }
 }
