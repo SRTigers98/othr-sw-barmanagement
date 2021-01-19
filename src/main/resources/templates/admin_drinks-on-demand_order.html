@@ -30,7 +30,7 @@
           <input type="text" class="form-control" id="name" readonly th:value="${article.key}">
         </td>
         <td>
-          <input type="number" min="0" class="form-control" id="quantity"
+          <input type="number" min="0" class="form-control" id="quantity" th:readonly="${saved}"
                  th:field="${model.articlePositions[__${article.key}__]}">
         </td>
       </tr>

@@ -14,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 import othr.nec37329.beverageproducer.backend.rest.ArticleDTO;
 import othr.nec37329.beverageproducer.backend.rest.CustomerOrderDTO;
 
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -21,8 +22,7 @@ import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasProperty;
 import static org.mockito.ArgumentMatchers.eq;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class DrinksOnDemandServiceTest {
@@ -54,6 +54,43 @@ class DrinksOnDemandServiceTest {
     assertThat(result, is(notNullValue()));
     assertThat(result.size(), is(3));
     assertThat(result, hasItems(article1, article2, article3));
+  }
+
+  @Test
+  void getArticleByNameTest() {
+    var tested = spy(this.tested);
+
+    var name = "Pan Galactic Gargle Blaster";
+
+    var article = mock(ArticleDTO.class);
+    var panGalacticGargleBlaster = mock(ArticleDTO.class);
+    var articles = List.of(article, article, article, panGalacticGargleBlaster, article);
+
+    doReturn(articles).when(tested).getArticles();
+    when(article.getName()).thenReturn("Not The Wanted One");
+    when(panGalacticGargleBlaster.getName()).thenReturn(name);
+
+    var result = tested.getArticleByName(name);
+
+    assertThat(result.isPresent(), is(true));
+    assertThat(result.get(), is(panGalacticGargleBlaster));
+  }
+
+  @Test
+  void getArticleByNameNotFoundTest() {
+    var tested = spy(this.tested);
+
+    var name = "Pan Galactic Gargle Blaster";
+
+    var article = mock(ArticleDTO.class);
+    var articles = List.of(article, article, article, article, article);
+
+    doReturn(articles).when(tested).getArticles();
+    when(article.getName()).thenReturn("Not The Wanted One");
+
+    var result = tested.getArticleByName(name);
+
+    assertThat(result.isPresent(), is(false));
   }
 
   @Test

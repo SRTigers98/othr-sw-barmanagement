@@ -11,10 +11,7 @@ import othr.nec37329.beverageproducer.backend.rest.ArticleDTO;
 import othr.nec37329.beverageproducer.backend.rest.CustomerOrderDTO;
 import othr.nec37329.beverageproducer.backend.rest.OrderpositionDTO;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -34,6 +31,12 @@ public class DrinksOnDemandService {
                                .getBody();
     Assert.notNull(articles, "Articles must not be null!");
     return Arrays.asList(articles);
+  }
+
+  public Optional<ArticleDTO> getArticleByName(String name) {
+    return this.getArticles().stream()
+               .filter(article -> article.getName().equals(name))
+               .findFirst();
   }
 
   public SimpleDrink getArticleAsSimpleDrink(String articleId) {
