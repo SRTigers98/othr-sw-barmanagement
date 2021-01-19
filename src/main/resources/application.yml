@@ -1,3 +1,6 @@
+spring:
+  profiles:
+    active: prod
 othr:
   auth: http://im-codd.oth-regensburg.de:8931
   warehouse:
