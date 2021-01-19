@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <title>SW Barmanagement - Admin-Console</title>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
   <link rel="stylesheet" th:href="@{/styles/default.css}">
@@ -26,7 +26,8 @@
     </div>
     <div class="mb-3">
       <label for="percentageOfAlcohol" class="form-label">Percentage of Alcohol</label>
-      <input type="number" step="0.1" min="0" class="form-control" id="percentageOfAlcohol" th:field="*{percentageOfAlcohol}">
+      <input type="number" step="0.1" min="0" class="form-control" id="percentageOfAlcohol"
+             th:field="*{percentageOfAlcohol}">
     </div>
     <div class="mb-3">
       <label for="price" class="form-label">Price</label>
@@ -35,13 +36,16 @@
     <div class="mb-3">
       <label>Type</label>
       <div class="form-check" th:each="type: ${types}">
-        <input class="form-check-input" type="radio" th:id="${type}" th:field="*{type}" th:value="${type}">
-        <label class="form-check-label" th:for="${type}" th:text="${type}"></label>
+        <input class="form-check-input" type="radio" id="type" th:field="*{type}" th:value="${type}"
+               name="type" required>
+        <label class="form-check-label" for="type" th:text="${type}"></label>
       </div>
     </div>
     <div>
       <button type="submit" class="btn btn-primary">Save</button>
-      <a th:href="'/admin/complex/' + *{id} + '/recipe'" th:hidden="${newDrink}" class="btn btn-secondary">Edit Recipe</a>
+      <a th:href="'/admin/complex/' + *{id} + '/recipe'" th:hidden="${newDrink}" class="btn btn-secondary">
+        Edit Recipe
+      </a>
     </div>
   </form>
   <br>
