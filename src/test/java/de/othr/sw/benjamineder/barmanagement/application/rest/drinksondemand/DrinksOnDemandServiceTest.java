@@ -1,28 +1,43 @@
 package de.othr.sw.benjamineder.barmanagement.application.rest.drinksondemand;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.ArgumentMatchers;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.ResponseEntity;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
 import othr.nec37329.beverageproducer.backend.rest.ArticleDTO;
+import othr.nec37329.beverageproducer.backend.rest.CustomerOrderDTO;
 
+import java.util.Map;
 import java.util.UUID;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasProperty;
+import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class DrinksOnDemandServiceTest {
 
+  private static final String CUSTOMER_ID = "ArthurDent42";
+
   @InjectMocks
   private DrinksOnDemandService tested;
   @Mock
   private RestTemplate          restTemplate;
+
+  @BeforeEach
+  void setUp() {
+    ReflectionTestUtils.setField(tested, "customerId", CUSTOMER_ID);
+  }
 
   @Test
   void getArticlesTest() {
@@ -64,5 +79,42 @@ class DrinksOnDemandServiceTest {
     assertThat(result.getName(), is(articleName));
     assertThat(result.getPrice(), is(articlePrice));
     assertThat(result.getBrand(), is(articleProducer));
+  }
+
+  @Test
+  void orderArticlesTest() {
+    var beer = mock(ArticleDTO.class);
+    var wine = mock(ArticleDTO.class);
+    var articlePositions = Map.of(beer, 20, wine, 5);
+
+    var orderCaptor = ArgumentCaptor.forClass(CustomerOrderDTO.class);
+    when(restTemplate.postForEntity(eq(String.format("/restapi/orders?id=%s", CUSTOMER_ID)), orderCaptor.capture(), eq(Object.class)))
+        .thenReturn(ResponseEntity.ok().build());
+
+    var result = tested.orderArticles(articlePositions);
+
+    assertThat(result, is(true));
+
+    var order = orderCaptor.getValue();
+    assertThat(order, is(notNullValue()));
+    assertThat(order.getOrderedArticles(), is(notNullValue()));
+    assertThat(order.getOrderedArticles(), hasItems(
+        allOf(hasProperty("article", is(beer)), hasProperty("quantity", is(20))),
+        allOf(hasProperty("article", is(wine)), hasProperty("quantity", is(5)))
+    ));
+  }
+
+  @Test
+  void orderArticlesBadRequestTest() {
+    var beer = mock(ArticleDTO.class);
+    var wine = mock(ArticleDTO.class);
+    var articlePositions = Map.of(beer, 20, wine, 5);
+
+    when(restTemplate.postForEntity(eq(String.format("/restapi/orders?id=%s", CUSTOMER_ID)), ArgumentMatchers.any(CustomerOrderDTO.class), eq(Object.class)))
+        .thenReturn(ResponseEntity.badRequest().build());
+
+    var result = tested.orderArticles(articlePositions);
+
+    assertThat(result, is(false));
   }
 }

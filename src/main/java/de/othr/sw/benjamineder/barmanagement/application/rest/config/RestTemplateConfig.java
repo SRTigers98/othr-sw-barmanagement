@@ -12,7 +12,7 @@ public class RestTemplateConfig {
 
   @Value("${othr.warehouse.host}")
   private String warehouseURL;
-  @Value("${othr.drinks-on-demand}")
+  @Value("${othr.drinks-on-demand.host}")
   private String drinksOnDemandURL;
 
   @Bean
