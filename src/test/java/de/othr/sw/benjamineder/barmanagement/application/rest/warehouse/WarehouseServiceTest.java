@@ -9,7 +9,6 @@ import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.web.client.RestTemplate;
@@ -48,11 +47,9 @@ class WarehouseServiceTest {
     var orderPositions = Map.of(firstID, 42, secondID, 5);
 
     var orderDtoCaptor = ArgumentCaptor.forClass(OrderDto.class);
-    var responseEntity = mock(ResponseEntity.class);
 
     when(restTemplate.postForEntity(eq("/api/orders"), orderDtoCaptor.capture(), eq(Object.class)))
-        .thenReturn(responseEntity);
-    when(responseEntity.getStatusCode()).thenReturn(HttpStatus.OK);
+        .thenReturn(ResponseEntity.ok().build());
 
     var result = tested.orderFromWarehouse(orderPositions);
 
@@ -77,11 +74,8 @@ class WarehouseServiceTest {
     var secondID = UUID.randomUUID();
     var orderPositions = Map.of(firstID, 42, secondID, 5);
 
-    var responseEntity = mock(ResponseEntity.class);
-
     when(restTemplate.postForEntity(eq("/api/orders"), any(OrderDto.class), eq(Object.class)))
-        .thenReturn(responseEntity);
-    when(responseEntity.getStatusCode()).thenReturn(HttpStatus.BAD_REQUEST);
+        .thenReturn(ResponseEntity.badRequest().build());
 
     var result = tested.orderFromWarehouse(orderPositions);
 
