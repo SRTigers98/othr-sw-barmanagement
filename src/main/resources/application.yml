@@ -5,5 +5,5 @@ othr:
   auth: http://im-codd.oth-regensburg.de:8931
   warehouse:
     host: http://im-codd.oth-regensburg.de:8950
-    customer-number: 00000001
+    customer-number: "00000001"
   drinks-on-demand: http://im-codd.oth-regensburg.de:8947
