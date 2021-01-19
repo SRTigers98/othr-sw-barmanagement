@@ -48,11 +48,4 @@ public class AdminSimpleController {
     simpleDrinkService.deleteDrink(drinkId);
     return "redirect:/admin";
   }
-
-  @GetMapping(path = "/drinks-on-demand")
-  public String adminDrinksOnDemandArticles(Model model) {
-    var articles = drinksOnDemandService.getArticles();
-    model.addAttribute("articles", articles);
-    return "admin_drinks-on-demand";
-  }
 }
