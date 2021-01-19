@@ -3,15 +3,12 @@ package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrinkType;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
-import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.UUID;
 
 @Controller
 @RequestMapping("/admin/complex")
@@ -34,7 +31,10 @@ public class AdminComplexController {
 
   @GetMapping(path = "/{drinkId}")
   public String adminComplexDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
-    configureAdminComplexModel(model, complexDrinkService.getDrinkById(drinkId), false, false);
+    var drink = complexDrinkService.getDrinkById(drinkId)
+                                   .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
+                                                                                                 drinkId.toString())));
+    configureAdminComplexModel(model, drink, false, false);
     return ADMIN_COMPLEX_SITE;
   }
 

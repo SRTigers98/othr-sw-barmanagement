@@ -1,23 +1,22 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.sw.benjamineder.barmanagement.application.drink.dao.ComplexDrinkRepository;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrink;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.DrinkRecipe;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class ComplexDrinkServiceTest {
@@ -47,16 +46,19 @@ class ComplexDrinkServiceTest {
 
     var result = tested.getDrinkById(drinkId);
 
-    assertThat(result, is(drink));
+    assertThat(result.isPresent(), is(true));
+    assertThat(result.get(), is(drink));
   }
 
   @Test
-  void getDrinkByIdExceptionTest() {
+  void getDrinkByIdNotFoundTest() {
     var drinkId = UUID.randomUUID();
 
     when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 
-    assertThrows(IllegalArgumentException.class, () -> tested.getDrinkById(drinkId));
+    var result = tested.getDrinkById(drinkId);
+
+    assertThat(result.isPresent(), is(false));
   }
 
   @Test

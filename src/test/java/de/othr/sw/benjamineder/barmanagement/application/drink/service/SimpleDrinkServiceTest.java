@@ -45,16 +45,19 @@ class SimpleDrinkServiceTest {
 
     var result = tested.getDrinkById(drinkId);
 
-    assertThat(result, is(drink));
+    assertThat(result.isPresent(), is(true));
+    assertThat(result.get(), is(drink));
   }
 
   @Test
-  void getDrinkByIdExceptionTest() {
+  void getDrinkByIdNotFoundTest() {
     var drinkId = UUID.randomUUID();
 
     when(simpleDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 
-    assertThrows(IllegalArgumentException.class, () -> tested.getDrinkById(drinkId));
+    var result = tested.getDrinkById(drinkId);
+
+    assertThat(result.isPresent(), is(false));
   }
 
   @Test

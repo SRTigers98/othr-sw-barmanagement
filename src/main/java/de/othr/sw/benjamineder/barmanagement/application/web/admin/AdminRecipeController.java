@@ -45,7 +45,9 @@ public class AdminRecipeController {
 
   @PostMapping
   public String adminComplexDrinkRecipe(@PathVariable("drinkId") UUID drinkId, @ModelAttribute DrinkRecipe recipe, Model model) {
-    var drink = complexDrinkService.getDrinkById(drinkId);
+    var drink = complexDrinkService.getDrinkById(drinkId)
+                                   .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
+                                                                                                 drinkId.toString())));
     complexDrinkService.getRecipeForDrink(drinkId)
                        .map(DrinkRecipe::getComponents)
                        .ifPresent(recipe::setComponents);
@@ -84,6 +86,9 @@ public class AdminRecipeController {
   public String adminEditRecipeComponents(@PathVariable("drinkId") UUID drinkId,
                                           @ModelAttribute ComponentsModel componentsModel,
                                           Model model) {
+    var drink = complexDrinkService.getDrinkById(drinkId)
+                                   .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
+                                                                                                 drinkId.toString())));
     var components = componentsModel.getComponents().entrySet().stream()
                                     .map(this::getRecipeComponentFromEntry)
                                     .filter(comp -> comp.getQuantity() > 0)
@@ -92,7 +97,6 @@ public class AdminRecipeController {
                                     .orElseGet(DrinkRecipe::new);
     recipe.getComponents().clear();
     recipe.getComponents().addAll(components);
-    var drink = complexDrinkService.getDrinkById(drinkId);
     drink.setRecipe(recipe);
     complexDrinkService.addOrUpdateDrink(drink);
     model.addAttribute(DRINK_ID, drinkId)

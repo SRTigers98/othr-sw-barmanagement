@@ -26,7 +26,9 @@ public class AdminSimpleController {
 
   @GetMapping(path = "/{drinkId}")
   public String adminSimpleDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
-    model.addAttribute("drink", simpleDrinkService.getDrinkById(drinkId))
+    var drink = simpleDrinkService.getDrinkById(drinkId)
+                                  .orElseGet(() -> drinksOnDemandService.getArticleAsSimpleDrink(drinkId.toString()));
+    model.addAttribute("drink", drink)
          .addAttribute("types", SimpleDrinkType.values())
          .addAttribute("saved", false);
     return "admin_simple";

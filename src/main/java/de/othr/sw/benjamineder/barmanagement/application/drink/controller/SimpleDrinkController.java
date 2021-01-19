@@ -2,17 +2,11 @@ package de.othr.sw.benjamineder.barmanagement.application.drink.controller;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 import java.util.UUID;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api/v1/drink/simple")
@@ -42,6 +36,7 @@ public class SimpleDrinkController {
 
   @GetMapping(path = "/{id}", produces = "application/json")
   public SimpleDrink getSimpleDrinkById(@PathVariable("id") UUID drinkId) {
-    return simpleDrinkService.getDrinkById(drinkId);
+    return simpleDrinkService.getDrinkById(drinkId)
+                             .orElse(null);
   }
 }

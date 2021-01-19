@@ -1,19 +1,22 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
-import java.util.List;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class SimpleDrinkControllerTest {
@@ -63,10 +66,21 @@ class SimpleDrinkControllerTest {
     var drinkId = UUID.randomUUID();
     var drink = mock(SimpleDrink.class);
 
-    when(simpleDrinkService.getDrinkById(drinkId)).thenReturn(drink);
+    when(simpleDrinkService.getDrinkById(drinkId)).thenReturn(Optional.of(drink));
 
     var result = tested.getSimpleDrinkById(drinkId);
 
     assertThat(result, is(drink));
+  }
+
+  @Test
+  void getSimpleDrinkByIdNotFoundTest() {
+    var drinkId = UUID.randomUUID();
+
+    when(simpleDrinkService.getDrinkById(drinkId)).thenReturn(Optional.empty());
+
+    var result = tested.getSimpleDrinkById(drinkId);
+
+    assertThat(result, is(nullValue()));
   }
 }

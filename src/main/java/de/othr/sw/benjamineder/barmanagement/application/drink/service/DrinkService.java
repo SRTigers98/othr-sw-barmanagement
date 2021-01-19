@@ -1,10 +1,12 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.service;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
-import java.util.List;
-import java.util.UUID;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.util.Assert;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public abstract class DrinkService<T extends Drink> {
 
@@ -18,9 +20,8 @@ public abstract class DrinkService<T extends Drink> {
     return drinkRepository.findAll();
   }
 
-  public T getDrinkById(UUID drinkId) {
-    return drinkRepository.findById(drinkId)
-                          .orElseThrow(() -> this.drinkIdNotFoundException(drinkId));
+  public Optional<T> getDrinkById(UUID drinkId) {
+    return drinkRepository.findById(drinkId);
   }
 
   public T addOrUpdateDrink(T drink) {

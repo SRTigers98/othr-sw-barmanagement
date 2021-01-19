@@ -1,22 +1,23 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.nullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.DrinkRecipe;
-import java.util.List;
-import java.util.Optional;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.nullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ComplexDrinkControllerTest {
@@ -66,11 +67,22 @@ class ComplexDrinkControllerTest {
     var drinkId = UUID.randomUUID();
     var drink = mock(ComplexDrink.class);
 
-    when(complexDrinkService.getDrinkById(drinkId)).thenReturn(drink);
+    when(complexDrinkService.getDrinkById(drinkId)).thenReturn(Optional.of(drink));
 
     var result = tested.getComplexDrinkById(drinkId);
 
     assertThat(result, is(drink));
+  }
+
+  @Test
+  void getComplexDrinkByIdNotFoundTest() {
+    var drinkId = UUID.randomUUID();
+
+    when(complexDrinkService.getDrinkById(drinkId)).thenReturn(Optional.empty());
+
+    var result = tested.getComplexDrinkById(drinkId);
+
+    assertThat(result, is(nullValue()));
   }
 
   @Test
