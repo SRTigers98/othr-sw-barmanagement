@@ -46,6 +46,12 @@ public class AdminComplexController {
     return ADMIN_COMPLEX_SITE;
   }
 
+  @PostMapping(path = "/{drinkId}/delete")
+  public String adminDeleteComplexDrink(@PathVariable("drinkId") UUID drinkId) {
+    complexDrinkService.deleteDrink(drinkId);
+    return "redirect:/admin";
+  }
+
   private void configureAdminComplexModel(Model model, ComplexDrink drink, boolean saved, boolean newDrink) {
     model.addAttribute("drink", drink)
          .addAttribute("types", ComplexDrinkType.values())

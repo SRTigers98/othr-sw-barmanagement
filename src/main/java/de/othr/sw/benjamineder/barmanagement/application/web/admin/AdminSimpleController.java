@@ -43,6 +43,12 @@ public class AdminSimpleController {
     return "admin_simple";
   }
 
+  @PostMapping(path = "/{drinkId}/delete")
+  public String adminDeleteSimpleDrink(@PathVariable("drinkId") UUID drinkId) {
+    simpleDrinkService.deleteDrink(drinkId);
+    return "redirect:/admin";
+  }
+
   @GetMapping(path = "/drinks-on-demand")
   public String adminDrinksOnDemandArticles(Model model) {
     var articles = drinksOnDemandService.getArticles();

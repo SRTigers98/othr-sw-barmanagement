@@ -48,6 +48,10 @@
     <button type="submit" class="btn btn-primary">Save</button>
   </form>
   <br>
+  <form th:action="@{'/admin/simple/' + ${drinkId} + '/delete'}" method="post">
+    <button type="submit" class="btn btn-danger">Delete</button>
+  </form>
+  <br>
   <div class="alert alert-success alert-dismissible fade show" role="alert" th:hidden="!${saved}">
     <p>Saved successfully!</p>
     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
