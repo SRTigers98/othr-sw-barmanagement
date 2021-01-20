@@ -17,7 +17,10 @@
       <span th:text="${drink.getName()}"></span>
       <div class="collapse" th:id="'recipe-' + ${drink.getId()}">
         <div class="card card-body bg-info" th:object="${drink.recipe}">
-          <span><strong>Notes: </strong><span th:text="*{getNotes()}"></span></span>
+          <div th:switch="*{notes != null && notes.length() > 0}">
+            <span th:case="${true}"><strong>Notes: </strong><span th:text="*{notes}"></span></span>
+            <span th:case="*"><strong>There were no notes for this recipe.</strong></span>
+          </div>
         </div>
       </div>
     </a>
