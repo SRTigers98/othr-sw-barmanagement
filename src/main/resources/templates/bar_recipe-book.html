@@ -21,6 +21,19 @@
             <span th:case="${true}"><strong>Notes: </strong><span th:text="*{notes}"></span></span>
             <span th:case="*"><strong>There were no notes for this recipe.</strong></span>
           </div>
+          <div th:switch="*{components != null && components.size() > 0}">
+            <strong>Components</strong>
+            <ul th:case="${true}" class="list-group">
+              <li th:each="component: *{components}" class="list-group-item list-group-item-dark">
+                <span>
+                  <span th:text="${component.component.name}"></span>: <span th:text="${component.quantity}"></span> ml
+                </span>
+              </li>
+            </ul>
+            <div th:case="*" class="alert alert-warning" role="alert">
+              There are no components in the recipe!
+            </div>
+          </div>
         </div>
       </div>
     </a>
