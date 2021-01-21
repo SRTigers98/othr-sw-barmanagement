@@ -1,8 +1,9 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.entity;
 
-import javax.persistence.Entity;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.Entity;
 
 @Entity
 @Data
@@ -11,6 +12,4 @@ public class SimpleDrink extends Drink {
 
   private String          brand;
   private SimpleDrinkType type;
-  private Integer         stock;
-  private Integer         tempStock;
 }
