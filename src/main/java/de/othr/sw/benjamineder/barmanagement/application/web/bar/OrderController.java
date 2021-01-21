@@ -36,7 +36,7 @@ public class OrderController {
     model.addAttribute("drinkOrders", drinkOrderService.getDrinkOrders())
          .addAttribute("formatter", formatter)
          .addAttribute("totalRevenue", drinkOrderService.getDrinkOrdersRevenue());
-    return "bar_order-overview";
+    return "bar/bar_order-overview";
   }
 
   @GetMapping(path = "/new")
@@ -45,7 +45,7 @@ public class OrderController {
                                    .collect(Collectors.toMap(Drink::getName, drink -> 0));
     model.addAttribute("model", new OrderModel(positions))
          .addAttribute("saved", false);
-    return "bar_order";
+    return "bar/bar_order";
   }
 
   @PostMapping(path = "/new")
@@ -62,7 +62,7 @@ public class OrderController {
     drinkOrderService.order(orderPositions);
     model.addAttribute("model", order)
          .addAttribute("saved", true);
-    return "bar_order";
+    return "bar/bar_order";
   }
 
   private OrderPosition createOrderPosition(Drink drink, Integer quantity) {

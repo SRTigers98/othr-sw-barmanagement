@@ -25,7 +25,7 @@ public class RedeemCouponController {
   public String redeemCouponForm(Model model) {
     model.addAttribute("couponModel", new CouponModel())
          .addAttribute("response", false);
-    return "bar_redeem-coupon";
+    return "bar/bar_redeem-coupon";
   }
 
   @PostMapping
@@ -40,6 +40,6 @@ public class RedeemCouponController {
     }
     model.addAttribute("couponModel", new CouponModel())
          .addAttribute("response", true);
-    return "bar_redeem-coupon";
+    return "bar/bar_redeem-coupon";
   }
 }

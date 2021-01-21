@@ -26,6 +26,6 @@ public class RecipeBookController {
                                               .filter(drink -> drink.getRecipe() != null)
                                               .collect(Collectors.toList());
     model.addAttribute("drinksWithRecipe", drinksWithRecipe);
-    return "bar_recipe-book";
+    return "bar/bar_recipe-book";
   }
 }

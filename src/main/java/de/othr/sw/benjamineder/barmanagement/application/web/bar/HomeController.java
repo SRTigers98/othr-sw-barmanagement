@@ -33,6 +33,6 @@ public class HomeController {
                                            .collect(Collectors.groupingBy(ComplexDrink::getType));
     model.addAttribute("simpleDrinks", simpleDrinks)
          .addAttribute("complexDrinks", complexDrinks);
-    return "bar_home";
+    return "bar/bar_home";
   }
 }
