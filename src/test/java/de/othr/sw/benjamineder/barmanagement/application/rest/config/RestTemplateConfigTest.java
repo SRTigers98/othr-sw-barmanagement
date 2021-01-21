@@ -17,6 +17,19 @@ class RestTemplateConfigTest {
   private RestTemplateConfig tested;
 
   @Test
+  void othAuthRestTemplateTest() {
+    var othAuthURL = "http://test.oth-auth.org";
+    ReflectionTestUtils.setField(tested, "othAuthURL", othAuthURL);
+
+    var result = tested.othAuthRestTemplate();
+
+    assertThat(result, is(notNullValue()));
+    assertThat(result.getUriTemplateHandler(), is(notNullValue()));
+    var rootURI = (String) ReflectionTestUtils.getField(result.getUriTemplateHandler(), "rootUri");
+    assertThat(rootURI, is(othAuthURL));
+  }
+
+  @Test
   void warehouseRestTemplateTest() {
     var warehouseURL = "http://test.warehouse.org";
     ReflectionTestUtils.setField(tested, "warehouseURL", warehouseURL);
