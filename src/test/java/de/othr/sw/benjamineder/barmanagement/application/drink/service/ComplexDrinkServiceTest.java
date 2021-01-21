@@ -39,7 +39,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void getDrinkByIdTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drink = mock(ComplexDrink.class);
 
     when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.of(drink));
@@ -52,7 +52,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void getDrinkByIdNotFoundTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
 
     when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 
@@ -80,7 +80,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void deleteComplexDrinkTest() {
-    var id = UUID.randomUUID();
+    var id = UUID.randomUUID().toString();
 
     var drink = mock(ComplexDrink.class);
 
@@ -94,7 +94,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void deleteComplexDrinkExceptionTest() {
-    var id = UUID.randomUUID();
+    var id = UUID.randomUUID().toString();
 
     when(complexDrinkRepository.findById(id)).thenReturn(Optional.empty());
 
@@ -108,7 +108,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void getRecipeForDrinkTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drink = mock(ComplexDrink.class);
     var drinkRecipe = mock(DrinkRecipe.class);
 
@@ -123,7 +123,7 @@ class ComplexDrinkServiceTest {
 
   @Test
   void getRecipeForDrinkIllegalArgumentTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
 
     when(complexDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 

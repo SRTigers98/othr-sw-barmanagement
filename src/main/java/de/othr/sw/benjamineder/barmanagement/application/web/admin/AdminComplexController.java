@@ -8,8 +8,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/admin/complex")
 public class AdminComplexController {
@@ -30,10 +28,10 @@ public class AdminComplexController {
   }
 
   @GetMapping(path = "/{drinkId}")
-  public String adminComplexDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
+  public String adminComplexDrinkForm(@PathVariable("drinkId") String drinkId, Model model) {
     var drink = complexDrinkService.getDrinkById(drinkId)
                                    .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
-                                                                                                 drinkId.toString())));
+                                                                                                 drinkId)));
     configureAdminComplexModel(model, drink, false, false);
     return ADMIN_COMPLEX_SITE;
   }
@@ -47,7 +45,7 @@ public class AdminComplexController {
   }
 
   @PostMapping(path = "/{drinkId}/delete")
-  public String adminDeleteComplexDrink(@PathVariable("drinkId") UUID drinkId) {
+  public String adminDeleteComplexDrink(@PathVariable("drinkId") String drinkId) {
     complexDrinkService.deleteDrink(drinkId);
     return "redirect:/admin";
   }

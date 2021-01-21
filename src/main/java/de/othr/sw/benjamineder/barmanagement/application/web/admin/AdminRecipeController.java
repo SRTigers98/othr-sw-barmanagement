@@ -12,7 +12,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.toMap;
@@ -34,7 +33,7 @@ public class AdminRecipeController {
   }
 
   @GetMapping
-  public String adminComplexDrinkRecipe(@PathVariable("drinkId") UUID drinkId, Model model) {
+  public String adminComplexDrinkRecipe(@PathVariable("drinkId") String drinkId, Model model) {
     var recipe = complexDrinkService.getRecipeForDrink(drinkId)
                                     .orElseGet(DrinkRecipe::new);
     model.addAttribute(DRINK_ID, drinkId)
@@ -44,10 +43,10 @@ public class AdminRecipeController {
   }
 
   @PostMapping
-  public String adminComplexDrinkRecipe(@PathVariable("drinkId") UUID drinkId, @ModelAttribute DrinkRecipe recipe, Model model) {
+  public String adminComplexDrinkRecipe(@PathVariable("drinkId") String drinkId, @ModelAttribute DrinkRecipe recipe, Model model) {
     var drink = complexDrinkService.getDrinkById(drinkId)
                                    .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
-                                                                                                 drinkId.toString())));
+                                                                                                 drinkId)));
     complexDrinkService.getRecipeForDrink(drinkId)
                        .map(DrinkRecipe::getComponents)
                        .ifPresent(recipe::setComponents);
@@ -60,7 +59,7 @@ public class AdminRecipeController {
   }
 
   @GetMapping(path = "/components")
-  public String adminRecipeComponents(@PathVariable("drinkId") UUID drinkId, Model model) {
+  public String adminRecipeComponents(@PathVariable("drinkId") String drinkId, Model model) {
     var recipeComponents = complexDrinkService.getRecipeForDrink(drinkId)
                                               .map(DrinkRecipe::getComponents);
     var components = getComponentsMap(recipeComponents);
@@ -83,12 +82,12 @@ public class AdminRecipeController {
   }
 
   @PostMapping(path = "/components")
-  public String adminEditRecipeComponents(@PathVariable("drinkId") UUID drinkId,
+  public String adminEditRecipeComponents(@PathVariable("drinkId") String drinkId,
                                           @ModelAttribute ComponentsModel componentsModel,
                                           Model model) {
     var drink = complexDrinkService.getDrinkById(drinkId)
                                    .orElseThrow(() -> new IllegalArgumentException(String.format("Drink ID %s not found!",
-                                                                                                 drinkId.toString())));
+                                                                                                 drinkId)));
     var components = componentsModel.getComponents().entrySet().stream()
                                     .map(this::getRecipeComponentFromEntry)
                                     .filter(comp -> comp.getQuantity() > 0)

@@ -1,13 +1,10 @@
 package de.othr.sw.benjamineder.barmanagement.application.drink.entity;
 
-import java.util.UUID;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import javax.persistence.*;
+import java.util.UUID;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
@@ -16,7 +13,7 @@ import lombok.EqualsAndHashCode;
 public class Drink {
 
   @Id
-  private UUID    id;
+  private String  id;
   @Column(unique = true)
   private String  name;
   private Integer size;
@@ -24,7 +21,7 @@ public class Drink {
   private Double  price;
 
   protected Drink() {
-    this.id = UUID.randomUUID();
+    this.id = UUID.randomUUID().toString();
   }
 
   public boolean isAlcoholic() {

@@ -52,7 +52,7 @@ class ComplexDrinkControllerTest {
 
   @Test
   void deleteComplexDrinkTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var deletedDrink = mock(ComplexDrink.class);
 
     when(complexDrinkService.deleteDrink(drinkId)).thenReturn(deletedDrink);
@@ -64,7 +64,7 @@ class ComplexDrinkControllerTest {
 
   @Test
   void getComplexDrinkByIdTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drink = mock(ComplexDrink.class);
 
     when(complexDrinkService.getDrinkById(drinkId)).thenReturn(Optional.of(drink));
@@ -76,7 +76,7 @@ class ComplexDrinkControllerTest {
 
   @Test
   void getComplexDrinkByIdNotFoundTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
 
     when(complexDrinkService.getDrinkById(drinkId)).thenReturn(Optional.empty());
 
@@ -87,7 +87,7 @@ class ComplexDrinkControllerTest {
 
   @Test
   void getRecipeForDrinkTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drinkRecipe = mock(DrinkRecipe.class);
 
     when(complexDrinkService.getRecipeForDrink(drinkId)).thenReturn(Optional.of(drinkRecipe));
@@ -99,7 +99,7 @@ class ComplexDrinkControllerTest {
 
   @Test
   void getRecipeForDrinkNoRecipeTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drinkRecipe = mock(DrinkRecipe.class);
 
     when(complexDrinkService.getRecipeForDrink(drinkId)).thenReturn(Optional.empty());

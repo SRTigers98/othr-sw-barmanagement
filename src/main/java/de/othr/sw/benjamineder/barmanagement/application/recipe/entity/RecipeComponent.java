@@ -1,12 +1,13 @@
 package de.othr.sw.benjamineder.barmanagement.application.recipe.entity;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.SimpleDrink;
-import java.util.UUID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -14,12 +15,12 @@ import lombok.EqualsAndHashCode;
 public class RecipeComponent {
 
   @Id
-  private UUID        id;
+  private String      id;
   @ManyToOne(optional = false)
   private SimpleDrink component;
   private Integer     quantity;
 
   public RecipeComponent() {
-    this.id = UUID.randomUUID();
+    this.id = UUID.randomUUID().toString();
   }
 }

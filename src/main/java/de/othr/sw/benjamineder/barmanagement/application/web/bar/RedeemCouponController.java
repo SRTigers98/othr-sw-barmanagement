@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/coupon/redeem")
 public class RedeemCouponController {
@@ -33,7 +31,7 @@ public class RedeemCouponController {
   @PostMapping
   public String redeemCoupon(@ModelAttribute CouponModel coupon, Model model) {
     try {
-      var couponId = UUID.fromString(coupon.getId());
+      var couponId = coupon.getId();
       model.addAttribute("coupon", couponService.redeemCoupon(couponId));
       model.addAttribute("redeemed", true);
     } catch (IllegalArgumentException | IllegalStateException e) {

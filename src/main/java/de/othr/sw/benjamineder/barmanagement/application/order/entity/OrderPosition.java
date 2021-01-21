@@ -1,12 +1,13 @@
 package de.othr.sw.benjamineder.barmanagement.application.order.entity;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
-import java.util.UUID;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -14,13 +15,13 @@ import lombok.EqualsAndHashCode;
 public class OrderPosition {
 
   @Id
-  private UUID    id;
+  private String  id;
   @ManyToOne(optional = false)
   private Drink   drink;
   private Integer quantity;
 
   public OrderPosition() {
-    this.id = UUID.randomUUID();
+    this.id = UUID.randomUUID().toString();
   }
 
   public Double getPrice() {

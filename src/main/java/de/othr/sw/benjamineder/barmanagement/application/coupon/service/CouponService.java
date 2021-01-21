@@ -5,8 +5,6 @@ import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
-
 @Service
 public class CouponService {
 
@@ -17,7 +15,7 @@ public class CouponService {
     this.couponRepository = couponRepository;
   }
 
-  public Coupon redeemCoupon(UUID couponId) {
+  public Coupon redeemCoupon(String couponId) {
     var coupon = couponRepository.findById(couponId)
                                  .orElseThrow(() -> new IllegalArgumentException(String.format("Coupon with id %s does not exist!", couponId)));
     if (coupon.isRedeemable()) {

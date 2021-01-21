@@ -12,7 +12,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
 import java.util.Map;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -27,9 +26,9 @@ public class WarehouseService {
     this.restTemplate = restTemplate;
   }
 
-  public boolean orderFromWarehouse(Map<UUID, Integer> orderPositions) {
+  public boolean orderFromWarehouse(Map<String, Integer> orderPositions) {
     var positionDtoList = orderPositions.entrySet().stream()
-                                        .map(entry -> new PositionDto(entry.getKey().toString(), entry.getValue()))
+                                        .map(entry -> new PositionDto(entry.getKey(), entry.getValue()))
                                         .collect(Collectors.toList());
     var orderDto = new OrderDto(null, customerNumber, positionDtoList);
     var response = restTemplate.postForEntity("/api/orders", orderDto, Object.class);

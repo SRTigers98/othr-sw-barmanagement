@@ -38,7 +38,7 @@ class SimpleDrinkServiceTest {
 
   @Test
   void getDrinkByIdTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
     var drink = mock(SimpleDrink.class);
 
     when(simpleDrinkRepository.findById(drinkId)).thenReturn(Optional.of(drink));
@@ -51,7 +51,7 @@ class SimpleDrinkServiceTest {
 
   @Test
   void getDrinkByIdNotFoundTest() {
-    var drinkId = UUID.randomUUID();
+    var drinkId = UUID.randomUUID().toString();
 
     when(simpleDrinkRepository.findById(drinkId)).thenReturn(Optional.empty());
 
@@ -79,7 +79,7 @@ class SimpleDrinkServiceTest {
 
   @Test
   void deleteSimpleDrinkTest() {
-    var id = UUID.randomUUID();
+    var id = UUID.randomUUID().toString();
 
     var drink = mock(SimpleDrink.class);
 
@@ -93,7 +93,7 @@ class SimpleDrinkServiceTest {
 
   @Test
   void deleteSimpleDrinkExceptionTest() {
-    var id = UUID.randomUUID();
+    var id = UUID.randomUUID().toString();
 
     when(simpleDrinkRepository.findById(id)).thenReturn(Optional.empty());
 

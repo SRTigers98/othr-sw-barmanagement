@@ -9,8 +9,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.UUID;
-
 @Controller
 @RequestMapping("/admin/simple")
 public class AdminSimpleController {
@@ -25,9 +23,9 @@ public class AdminSimpleController {
   }
 
   @GetMapping(path = "/{drinkId}")
-  public String adminSimpleDrinkForm(@PathVariable("drinkId") UUID drinkId, Model model) {
+  public String adminSimpleDrinkForm(@PathVariable("drinkId") String drinkId, Model model) {
     var drink = simpleDrinkService.getDrinkById(drinkId)
-                                  .orElseGet(() -> drinksOnDemandService.getArticleAsSimpleDrink(drinkId.toString()));
+                                  .orElseGet(() -> drinksOnDemandService.getArticleAsSimpleDrink(drinkId));
     model.addAttribute("drink", drink)
          .addAttribute("types", SimpleDrinkType.values())
          .addAttribute("saved", false);
@@ -44,7 +42,7 @@ public class AdminSimpleController {
   }
 
   @PostMapping(path = "/{drinkId}/delete")
-  public String adminDeleteSimpleDrink(@PathVariable("drinkId") UUID drinkId) {
+  public String adminDeleteSimpleDrink(@PathVariable("drinkId") String drinkId) {
     simpleDrinkService.deleteDrink(drinkId);
     return "redirect:/admin";
   }

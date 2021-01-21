@@ -1,20 +1,21 @@
 package de.othr.sw.benjamineder.barmanagement.application.order.controller;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-
 import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.CouponOrder;
 import de.othr.sw.benjamineder.barmanagement.application.order.service.CouponOrderService;
-import java.util.List;
-import java.util.UUID;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class CouponOrderControllerTest {
@@ -41,7 +42,7 @@ class CouponOrderControllerTest {
 
     var couponOrder = mock(CouponOrder.class);
     var coupon = mock(Coupon.class);
-    var couponId = UUID.randomUUID();
+    var couponId = UUID.randomUUID().toString();
 
     when(couponOrderService.orderCoupon(couponValue)).thenReturn(couponOrder);
     when(couponOrder.getCoupon()).thenReturn(coupon);

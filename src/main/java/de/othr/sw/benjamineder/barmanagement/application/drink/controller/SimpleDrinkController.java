@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/drink/simple")
@@ -30,12 +29,12 @@ public class SimpleDrinkController {
   }
 
   @DeleteMapping(produces = "application/json")
-  public SimpleDrink deleteSimpleDrink(@RequestParam("id") UUID drinkId) {
+  public SimpleDrink deleteSimpleDrink(@RequestParam("id") String drinkId) {
     return simpleDrinkService.deleteDrink(drinkId);
   }
 
   @GetMapping(path = "/{id}", produces = "application/json")
-  public SimpleDrink getSimpleDrinkById(@PathVariable("id") UUID drinkId) {
+  public SimpleDrink getSimpleDrinkById(@PathVariable("id") String drinkId) {
     return simpleDrinkService.getDrinkById(drinkId)
                              .orElse(null);
   }

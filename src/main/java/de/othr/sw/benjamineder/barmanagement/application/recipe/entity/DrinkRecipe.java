@@ -17,13 +17,13 @@ import java.util.UUID;
 public class DrinkRecipe {
 
   @Id
-  private UUID                  id;
+  private String                id;
   @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
   private List<RecipeComponent> components;
   private String                notes;
 
   public DrinkRecipe() {
-    this.id = UUID.randomUUID();
+    this.id = UUID.randomUUID().toString();
     this.components = new ArrayList<>();
   }
 }

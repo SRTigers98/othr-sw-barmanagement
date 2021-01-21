@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/drink/complex")
@@ -31,18 +30,18 @@ public class ComplexDrinkController {
   }
 
   @DeleteMapping(produces = "application/json")
-  public ComplexDrink deleteComplexDrink(@RequestParam("id") UUID drinkId) {
+  public ComplexDrink deleteComplexDrink(@RequestParam("id") String drinkId) {
     return complexDrinkService.deleteDrink(drinkId);
   }
 
   @GetMapping(path = "/{id}", produces = "application/json")
-  public ComplexDrink getComplexDrinkById(@PathVariable("id") UUID drinkId) {
+  public ComplexDrink getComplexDrinkById(@PathVariable("id") String drinkId) {
     return complexDrinkService.getDrinkById(drinkId)
                               .orElse(null);
   }
 
   @GetMapping(path = "/{id}/recipe", produces = "application/json")
-  public DrinkRecipe getRecipeForDrink(@PathVariable("id") UUID drinkId) {
+  public DrinkRecipe getRecipeForDrink(@PathVariable("id") String drinkId) {
     return complexDrinkService.getRecipeForDrink(drinkId)
                               .orElse(null);
   }

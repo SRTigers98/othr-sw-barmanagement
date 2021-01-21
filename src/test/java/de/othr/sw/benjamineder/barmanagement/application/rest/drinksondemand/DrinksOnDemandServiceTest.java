@@ -112,7 +112,7 @@ class DrinksOnDemandServiceTest {
     var result = tested.getArticleAsSimpleDrink(articleId);
 
     assertThat(result, is(notNullValue()));
-    assertThat(result.getId(), is(UUID.fromString(articleId)));
+    assertThat(result.getId(), is(articleId));
     assertThat(result.getName(), is(articleName));
     assertThat(result.getPrice(), is(articlePrice));
     assertThat(result.getBrand(), is(articleProducer));

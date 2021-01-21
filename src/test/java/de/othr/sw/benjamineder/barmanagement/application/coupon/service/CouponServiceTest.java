@@ -26,7 +26,7 @@ class CouponServiceTest {
 
   @Test
   void redeemCouponTest() {
-    var couponId = UUID.randomUUID();
+    var couponId = UUID.randomUUID().toString();
 
     var coupon = mock(Coupon.class);
     var savedCoupon = mock(Coupon.class);
@@ -45,7 +45,7 @@ class CouponServiceTest {
 
   @Test
   void redeemCouponNotFoundTest() {
-    var couponId = UUID.randomUUID();
+    var couponId = UUID.randomUUID().toString();
 
     when(couponRepository.findById(couponId)).thenReturn(Optional.empty());
 
@@ -54,7 +54,7 @@ class CouponServiceTest {
 
   @Test
   void redeemCouponNotRedeemableTest() {
-    var couponId = UUID.randomUUID();
+    var couponId = UUID.randomUUID().toString();
 
     var coupon = mock(Coupon.class);
 

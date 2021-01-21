@@ -25,7 +25,7 @@ class CouponControllerTest {
 
   @Test
   void putCouponRedemptionTest() {
-    var couponId = UUID.randomUUID();
+    var couponId = UUID.randomUUID().toString();
 
     var coupon = mock(Coupon.class);
 

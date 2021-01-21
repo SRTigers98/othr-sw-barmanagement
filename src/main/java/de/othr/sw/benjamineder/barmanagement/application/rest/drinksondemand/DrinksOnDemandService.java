@@ -11,7 +11,10 @@ import othr.nec37329.beverageproducer.backend.rest.ArticleDTO;
 import othr.nec37329.beverageproducer.backend.rest.CustomerOrderDTO;
 import othr.nec37329.beverageproducer.backend.rest.OrderpositionDTO;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -59,7 +62,7 @@ public class DrinksOnDemandService {
 
   private SimpleDrink mapArticleToSimpleDrink(ArticleDTO article) {
     var drink = new SimpleDrink();
-    drink.setId(UUID.fromString(article.getArtId()));
+    drink.setId(article.getArtId());
     drink.setName(article.getName());
     drink.setPrice(article.getPrice());
     drink.setBrand(article.getProducer());

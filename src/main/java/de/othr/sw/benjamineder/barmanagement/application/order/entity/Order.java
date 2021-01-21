@@ -14,11 +14,11 @@ import java.util.UUID;
 public abstract class Order {
 
   @Id
-  private UUID          id;
+  private String        id;
   private LocalDateTime timestamp;
 
   protected Order() {
-    this.id = UUID.randomUUID();
+    this.id = UUID.randomUUID().toString();
     this.timestamp = LocalDateTime.now();
   }
 

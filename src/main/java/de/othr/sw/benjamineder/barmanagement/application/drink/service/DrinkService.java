@@ -6,13 +6,12 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
 
 public abstract class DrinkService<T extends Drink> {
 
-  protected final JpaRepository<T, UUID> drinkRepository;
+  protected final JpaRepository<T, String> drinkRepository;
 
-  protected DrinkService(JpaRepository<T, UUID> drinkRepository) {
+  protected DrinkService(JpaRepository<T, String> drinkRepository) {
     this.drinkRepository = drinkRepository;
   }
 
@@ -20,7 +19,7 @@ public abstract class DrinkService<T extends Drink> {
     return drinkRepository.findAll();
   }
 
-  public Optional<T> getDrinkById(UUID drinkId) {
+  public Optional<T> getDrinkById(String drinkId) {
     return drinkRepository.findById(drinkId);
   }
 
@@ -29,7 +28,7 @@ public abstract class DrinkService<T extends Drink> {
     return drinkRepository.save(drink);
   }
 
-  public T deleteDrink(UUID drinkId) {
+  public T deleteDrink(String drinkId) {
     Assert.notNull(drinkId, "ID of Drink must not be null!");
     var drinkToDelete = drinkRepository.findById(drinkId)
                                        .orElseThrow(() -> this.drinkIdNotFoundException(drinkId));
@@ -37,7 +36,7 @@ public abstract class DrinkService<T extends Drink> {
     return drinkToDelete;
   }
 
-  protected IllegalArgumentException drinkIdNotFoundException(UUID drinkId) {
+  protected IllegalArgumentException drinkIdNotFoundException(String drinkId) {
     return new IllegalArgumentException(String.format("Drink with ID %s does not exist!", drinkId));
   }
 }

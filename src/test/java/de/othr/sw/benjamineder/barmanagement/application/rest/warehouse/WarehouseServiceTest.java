@@ -42,8 +42,8 @@ class WarehouseServiceTest {
 
   @Test
   void orderFromWarehouseTest() {
-    var firstID = UUID.randomUUID();
-    var secondID = UUID.randomUUID();
+    var firstID = UUID.randomUUID().toString();
+    var secondID = UUID.randomUUID().toString();
     var orderPositions = Map.of(firstID, 42, secondID, 5);
 
     var orderDtoCaptor = ArgumentCaptor.forClass(OrderDto.class);
@@ -62,16 +62,16 @@ class WarehouseServiceTest {
     assertThat(orderDto.getPositions(), is(notNullValue()));
     var positionsDtoList = orderDto.getPositions();
     assertThat(positionsDtoList.size(), is(2));
-    assertThat(positionsDtoList, hasItems(allOf(hasProperty("articleId", is(firstID.toString())),
+    assertThat(positionsDtoList, hasItems(allOf(hasProperty("articleId", is(firstID)),
                                                 hasProperty("qty", is(42))),
-                                          allOf(hasProperty("articleId", is(secondID.toString())),
+                                          allOf(hasProperty("articleId", is(secondID)),
                                                 hasProperty("qty", is(5)))));
   }
 
   @Test
   void orderFromWarehouseBadRequestTest() {
-    var firstID = UUID.randomUUID();
-    var secondID = UUID.randomUUID();
+    var firstID = UUID.randomUUID().toString();
+    var secondID = UUID.randomUUID().toString();
     var orderPositions = Map.of(firstID, 42, secondID, 5);
 
     when(restTemplate.postForEntity(eq("/api/orders"), any(OrderDto.class), eq(Object.class)))
