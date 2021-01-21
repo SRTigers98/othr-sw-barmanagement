@@ -39,7 +39,7 @@ public class AdminRecipeController {
     model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("recipe", recipe)
          .addAttribute(SAVED, false);
-    return "admin_recipe";
+    return "admin/admin_recipe";
   }
 
   @PostMapping
@@ -55,7 +55,7 @@ public class AdminRecipeController {
     model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("recipe", savedRecipe)
          .addAttribute(SAVED, true);
-    return "admin_recipe";
+    return "admin/admin_recipe";
   }
 
   @GetMapping(path = "/components")
@@ -66,7 +66,7 @@ public class AdminRecipeController {
     model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("model", new ComponentsModel(components))
          .addAttribute(SAVED, false);
-    return "admin_recipe_components";
+    return "admin/admin_recipe_components";
   }
 
   private Map<String, Integer> getComponentsMap(java.util.Optional<java.util.List<RecipeComponent>> recipeComponents) {
@@ -101,7 +101,7 @@ public class AdminRecipeController {
     model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("model", componentsModel)
          .addAttribute(SAVED, true);
-    return "admin_recipe_components";
+    return "admin/admin_recipe_components";
   }
 
   private RecipeComponent getRecipeComponentFromEntry(Map.Entry<String, Integer> entry) {

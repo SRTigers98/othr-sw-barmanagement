@@ -32,12 +32,12 @@ public class AdminReplenishmentController {
     var drinkStocks = warehouseService.getDrinkStocks();
     var drinksMap = simpleDrinkService.getDrinks().stream()
                                       .map(drink -> new ReplenishmentPositionModel(drink.getName(),
-                                                                                   drinkStocks.get(drink.getId().toString()),
+                                                                                   drinkStocks.get(drink.getId()),
                                                                                    0))
                                       .collect(Collectors.toList());
     model.addAttribute("model", new ReplenishmentModel(drinksMap))
          .addAttribute("saved", false);
-    return "admin_replenishment";
+    return "admin/admin_replenishment";
   }
 
   @PostMapping
@@ -50,6 +50,6 @@ public class AdminReplenishmentController {
     warehouseService.orderFromWarehouse(replenishmentPositions);
     model.addAttribute("model", replenishment)
          .addAttribute("saved", true);
-    return "admin_replenishment";
+    return "admin/admin_replenishment";
   }
 }

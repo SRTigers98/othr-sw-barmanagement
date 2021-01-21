@@ -34,7 +34,7 @@ public class AdminHomeController {
   public String adminHome(Model model) {
     model.addAttribute("simpleDrinks", mapDrinks(simpleDrinkService.getDrinks()))
          .addAttribute("complexDrinks", mapDrinks(complexDrinkService.getDrinks()));
-    return "admin_home";
+    return "admin/admin_home";
   }
 
   private List<DrinkModel> mapDrinks(List<? extends Drink> drinks) {
@@ -42,7 +42,7 @@ public class AdminHomeController {
     return drinks.stream()
                  .map(drink -> new DrinkModel(drink.getId(),
                                               drink.getName(),
-                                              stocks.getOrDefault(drink.getId().toString(), 0)))
+                                              stocks.getOrDefault(drink.getId(), 0)))
                  .collect(Collectors.toList());
   }
 }

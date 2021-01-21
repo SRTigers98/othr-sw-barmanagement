@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/admin/complex")
 public class AdminComplexController {
 
-  private static final String ADMIN_COMPLEX_SITE = "admin_complex";
+  private static final String ADMIN_COMPLEX_SITE = "admin/admin_complex";
 
   private final ComplexDrinkService complexDrinkService;
 

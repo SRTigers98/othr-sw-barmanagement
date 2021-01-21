@@ -29,7 +29,7 @@ public class AdminSimpleController {
     model.addAttribute("drink", drink)
          .addAttribute("types", SimpleDrinkType.values())
          .addAttribute("saved", false);
-    return "admin_simple";
+    return "admin/admin_simple";
   }
 
   @PostMapping(path = "/{drinkId}")
@@ -38,7 +38,7 @@ public class AdminSimpleController {
     model.addAttribute("drink", savedDrink)
          .addAttribute("types", SimpleDrinkType.values())
          .addAttribute("saved", true);
-    return "admin_simple";
+    return "admin/admin_simple";
   }
 
   @PostMapping(path = "/{drinkId}/delete")

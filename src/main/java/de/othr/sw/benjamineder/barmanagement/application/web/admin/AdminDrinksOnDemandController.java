@@ -29,7 +29,7 @@ public class AdminDrinksOnDemandController {
   public String adminDrinksOnDemandArticles(Model model) {
     var articles = drinksOnDemandService.getArticles();
     model.addAttribute("articles", articles);
-    return "admin_drinks-on-demand";
+    return "admin/admin_drinks-on-demand";
   }
 
   @GetMapping(path = "/order")
@@ -38,7 +38,7 @@ public class AdminDrinksOnDemandController {
                                         .collect(Collectors.toMap(ArticleDTO::getName, art -> 0));
     model.addAttribute("model", new DrinksOnDemandOrderModel(articles))
          .addAttribute("saved", false);
-    return "admin_drinks-on-demand_order";
+    return "admin/admin_drinks-on-demand_order";
   }
 
   @PostMapping(path = "/order")
@@ -50,7 +50,7 @@ public class AdminDrinksOnDemandController {
     drinksOnDemandService.orderArticles(orderPositions);
     model.addAttribute("model", order)
          .addAttribute("saved", true);
-    return "admin_drinks-on-demand_order";
+    return "admin/admin_drinks-on-demand_order";
   }
 
   private ArticleDTO getArticleByName(Map.Entry<String, Integer> entry) {
