@@ -1,0 +1,29 @@
+{
+  "properties": [
+    {
+      "name": "othr.oth-auth.host",
+      "type": "java.lang.String",
+      "description": "Host URL for the OTH-Auth Application."
+    },
+    {
+      "name": "othr.warehouse.host",
+      "type": "java.lang.String",
+      "description": "Host URL for the Warehouse Application."
+    },
+    {
+      "name": "othr.warehouse.customer-number",
+      "type": "java.lang.String",
+      "description": "Customer Number for the Warehouse Application."
+    },
+    {
+      "name": "othr.drinks-on-demand.host",
+      "type": "java.lang.String",
+      "description": "Host URL for the Drinks On Demand Application."
+    },
+    {
+      "name": "othr.drinks-on-demand.customer-id",
+      "type": "java.lang.String",
+      "description": "Customer ID for the Drinks On Demand Application."
+    }
+  ]
+}
