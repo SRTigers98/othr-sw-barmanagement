@@ -11,13 +11,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 
-import java.util.Collection;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasItems;
-import static org.mockito.ArgumentMatchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -37,11 +35,11 @@ class AuthProviderTest {
     var credentials = "pan_galactic_gargle_blaster!42";
     var authority1 = mock(GrantedAuthority.class);
     var authority2 = mock(GrantedAuthority.class);
-    Collection authoritiesCollection = List.of(authority1, authority2);
+    var authoritiesCollection = List.of(authority1, authority2);
 
     when(authentication.getPrincipal()).thenReturn(principal);
     when(authentication.getCredentials()).thenReturn(credentials);
-    when(othAuthService.authenticate(eq(principal), eq(credentials))).thenReturn(authoritiesCollection);
+    when(othAuthService.authenticate(principal, credentials)).thenReturn(authoritiesCollection);
 
     var result = tested.authenticate(authentication);
 

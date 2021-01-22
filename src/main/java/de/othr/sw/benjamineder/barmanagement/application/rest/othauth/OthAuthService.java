@@ -27,7 +27,7 @@ public class OthAuthService {
     this.restTemplate = restTemplate;
   }
 
-  public Collection<? extends GrantedAuthority> authenticate(String username, String password) throws OthAuthException {
+  public Collection<GrantedAuthority> authenticate(String username, String password) throws OthAuthException {
     var login = new LoginRequest();
     login.setUsername(username);
     login.setPassword(password);

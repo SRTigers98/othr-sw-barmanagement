@@ -12,6 +12,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 
 import java.util.Map;
 
+import static org.junit.jupiter.api.Assertions.fail;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -34,10 +35,14 @@ class AuthConfigurationTest {
   }
 
   @Test
-  void configureHttpSecurityTest() throws Exception {
+  void configureHttpSecurityTest() {
     var http = new HttpSecurity(mock(ObjectPostProcessor.class), mock(AuthenticationManagerBuilder.class), Map.of());
 
     // Only test if the configuration method runs without errors
-    tested.configure(http);
+    try {
+      tested.configure(http);
+    } catch (Exception e) {
+      fail("The method should not throw any exceptions!");
+    }
   }
 }

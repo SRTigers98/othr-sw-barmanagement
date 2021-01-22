@@ -36,7 +36,6 @@ public class AuthConfiguration extends WebSecurityConfigurerAdapter {
         .and()
         .formLogin()
         .loginPage("/login")
-        .loginProcessingUrl("/login")
         .defaultSuccessUrl("/")
         .failureUrl("/login?error=true")
         .and()
