@@ -75,6 +75,10 @@
       <version>5.1.48</version>
     </dependency>
     <dependency>
+      <groupId>org.thymeleaf.extras</groupId>
+      <artifactId>thymeleaf-extras-springsecurity5</artifactId>
+    </dependency>
+    <dependency>
       <groupId>de.othr.brs31213.sw.othauth</groupId>
       <artifactId>othauth-dto</artifactId>
       <version>0.0.1-SNAPSHOT</version>

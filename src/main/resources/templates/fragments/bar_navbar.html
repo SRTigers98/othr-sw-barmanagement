@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org">
 <head>
   <title>Bar-Navbar</title>
 </head>
@@ -25,7 +25,9 @@
         </li>
       </ul>
       <div class="d-flex">
-        <a href="/admin" class="btn btn-outline-light mx-2">Admin-Console</a>
+        <a sec:authorize="hasRole('BAR_ADMIN')" href="/admin" class="btn btn-outline-light mx-2">
+          Admin-Console
+        </a>
         <div th:insert="fragments/logout_button :: logout_button" class="mx-2"></div>
       </div>
     </div>
