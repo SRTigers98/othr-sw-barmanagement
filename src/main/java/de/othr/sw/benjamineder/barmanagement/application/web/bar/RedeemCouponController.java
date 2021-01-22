@@ -1,6 +1,7 @@
 package de.othr.sw.benjamineder.barmanagement.application.web.bar;
 
 import de.othr.sw.benjamineder.barmanagement.application.coupon.service.CouponService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarUserAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.CouponModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +22,7 @@ public class RedeemCouponController {
     this.couponService = couponService;
   }
 
+  @BarUserAccess
   @GetMapping
   public String redeemCouponForm(Model model) {
     model.addAttribute("couponModel", new CouponModel())
@@ -28,6 +30,7 @@ public class RedeemCouponController {
     return "bar/bar_redeem-coupon";
   }
 
+  @BarUserAccess
   @PostMapping
   public String redeemCoupon(@ModelAttribute CouponModel coupon, Model model) {
     try {

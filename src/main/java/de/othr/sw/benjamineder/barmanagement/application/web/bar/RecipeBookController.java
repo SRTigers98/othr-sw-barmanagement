@@ -1,6 +1,7 @@
 package de.othr.sw.benjamineder.barmanagement.application.web.bar;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarUserAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +21,7 @@ public class RecipeBookController {
     this.complexDrinkService = complexDrinkService;
   }
 
+  @BarUserAccess
   @GetMapping
   public String recipeOverview(Model model) {
     var drinksWithRecipe = complexDrinkService.getDrinks().stream()

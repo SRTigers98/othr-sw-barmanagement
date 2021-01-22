@@ -4,6 +4,7 @@ import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.DrinkAllService;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.OrderPosition;
 import de.othr.sw.benjamineder.barmanagement.application.order.service.DrinkOrderService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarUserAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.OrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class OrderController {
     this.drinkAllService = drinkAllService;
   }
 
+  @BarUserAccess
   @GetMapping
   public String drinkOrderOverview(Model model) {
     var formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -39,6 +41,7 @@ public class OrderController {
     return "bar/bar_order-overview";
   }
 
+  @BarUserAccess
   @GetMapping(path = "/new")
   public String drinkOrderForm(Model model) {
     var positions = drinkAllService.getAllDrinks().stream()
@@ -48,6 +51,7 @@ public class OrderController {
     return "bar/bar_order";
   }
 
+  @BarUserAccess
   @PostMapping(path = "/new")
   public String drinkOrder(@ModelAttribute OrderModel order, Model model) {
     var orderPositions = order.getOrderPositions().entrySet().stream()
