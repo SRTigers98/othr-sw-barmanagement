@@ -2,6 +2,7 @@ package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.rest.warehouse.WarehouseService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.ReplenishmentModel;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.ReplenishmentPositionModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,6 +28,7 @@ public class AdminReplenishmentController {
     this.warehouseService = warehouseService;
   }
 
+  @BarAdminAccess
   @GetMapping
   public String adminReplenishmentForm(Model model) {
     var drinkStocks = warehouseService.getDrinkStocks();
@@ -40,6 +42,7 @@ public class AdminReplenishmentController {
     return "admin/admin_replenishment";
   }
 
+  @BarAdminAccess
   @PostMapping
   public String adminOrderReplenishment(@ModelAttribute ReplenishmentModel replenishment, Model model) {
     var replenishmentPositions = replenishment.getReplenishmentPositions().stream()

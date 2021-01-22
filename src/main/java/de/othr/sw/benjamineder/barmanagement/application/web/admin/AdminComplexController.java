@@ -3,6 +3,7 @@ package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.entity.ComplexDrinkType;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +22,14 @@ public class AdminComplexController {
     this.complexDrinkService = complexDrinkService;
   }
 
+  @BarAdminAccess
   @GetMapping(path = "/new")
   public String adminComplexDrinkNew(Model model) {
     configureAdminComplexModel(model, new ComplexDrink(), false, true);
     return ADMIN_COMPLEX_SITE;
   }
 
+  @BarAdminAccess
   @GetMapping(path = "/{drinkId}")
   public String adminComplexDrinkForm(@PathVariable("drinkId") String drinkId, Model model) {
     var drink = complexDrinkService.getDrinkById(drinkId)
@@ -36,6 +39,7 @@ public class AdminComplexController {
     return ADMIN_COMPLEX_SITE;
   }
 
+  @BarAdminAccess
   @PostMapping(path = "/{drinkId}")
   public String adminEditComplexDrink(@ModelAttribute ComplexDrink complexDrink, Model model) {
     complexDrinkService.getRecipeForDrink(complexDrink.getId())
@@ -44,6 +48,7 @@ public class AdminComplexController {
     return ADMIN_COMPLEX_SITE;
   }
 
+  @BarAdminAccess
   @PostMapping(path = "/{drinkId}/delete")
   public String adminDeleteComplexDrink(@PathVariable("drinkId") String drinkId) {
     complexDrinkService.deleteDrink(drinkId);

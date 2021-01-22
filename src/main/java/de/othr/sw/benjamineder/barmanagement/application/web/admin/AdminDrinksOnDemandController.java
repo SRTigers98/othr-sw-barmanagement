@@ -1,6 +1,7 @@
 package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 
 import de.othr.sw.benjamineder.barmanagement.application.rest.drinksondemand.DrinksOnDemandService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.DrinksOnDemandOrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -25,6 +26,7 @@ public class AdminDrinksOnDemandController {
     this.drinksOnDemandService = drinksOnDemandService;
   }
 
+  @BarAdminAccess
   @GetMapping
   public String adminDrinksOnDemandArticles(Model model) {
     var articles = drinksOnDemandService.getArticles();
@@ -32,6 +34,7 @@ public class AdminDrinksOnDemandController {
     return "admin/admin_drinks-on-demand";
   }
 
+  @BarAdminAccess
   @GetMapping(path = "/order")
   public String adminDrinksOnDemandOrder(Model model) {
     var articles = drinksOnDemandService.getArticles().stream()
@@ -41,6 +44,7 @@ public class AdminDrinksOnDemandController {
     return "admin/admin_drinks-on-demand_order";
   }
 
+  @BarAdminAccess
   @PostMapping(path = "/order")
   public String adminOrderDrinks(@ModelAttribute DrinksOnDemandOrderModel order, Model model) {
     var orderPositions = order.getArticlePositions().entrySet().stream()

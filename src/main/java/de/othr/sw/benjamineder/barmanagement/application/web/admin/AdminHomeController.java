@@ -4,6 +4,7 @@ import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.rest.warehouse.WarehouseService;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.DrinkModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ public class AdminHomeController {
     this.warehouseService = warehouseService;
   }
 
+  @BarAdminAccess
   @GetMapping
   public String adminHome(Model model) {
     model.addAttribute("simpleDrinks", mapDrinks(simpleDrinkService.getDrinks()))

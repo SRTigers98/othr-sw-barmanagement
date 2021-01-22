@@ -5,6 +5,7 @@ import de.othr.sw.benjamineder.barmanagement.application.drink.service.ComplexDr
 import de.othr.sw.benjamineder.barmanagement.application.drink.service.SimpleDrinkService;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.DrinkRecipe;
 import de.othr.sw.benjamineder.barmanagement.application.recipe.entity.RecipeComponent;
+import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.ComponentsModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -32,6 +33,7 @@ public class AdminRecipeController {
     this.simpleDrinkService = simpleDrinkService;
   }
 
+  @BarAdminAccess
   @GetMapping
   public String adminComplexDrinkRecipe(@PathVariable("drinkId") String drinkId, Model model) {
     var recipe = complexDrinkService.getRecipeForDrink(drinkId)
@@ -42,6 +44,7 @@ public class AdminRecipeController {
     return "admin/admin_recipe";
   }
 
+  @BarAdminAccess
   @PostMapping
   public String adminComplexDrinkRecipe(@PathVariable("drinkId") String drinkId, @ModelAttribute DrinkRecipe recipe, Model model) {
     var drink = complexDrinkService.getDrinkById(drinkId)
@@ -58,6 +61,7 @@ public class AdminRecipeController {
     return "admin/admin_recipe";
   }
 
+  @BarAdminAccess
   @GetMapping(path = "/components")
   public String adminRecipeComponents(@PathVariable("drinkId") String drinkId, Model model) {
     var recipeComponents = complexDrinkService.getRecipeForDrink(drinkId)
@@ -81,6 +85,7 @@ public class AdminRecipeController {
                                                 .orElse(0)));
   }
 
+  @BarAdminAccess
   @PostMapping(path = "/components")
   public String adminEditRecipeComponents(@PathVariable("drinkId") String drinkId,
                                           @ModelAttribute ComponentsModel componentsModel,
