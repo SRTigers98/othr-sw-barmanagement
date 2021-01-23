@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -28,8 +29,10 @@ public class HomeController {
   @GetMapping
   public String home(Model model) {
     var simpleDrinks = simpleDrinkService.getDrinks().stream()
+                                         .sorted(Comparator.comparing(SimpleDrink::getName))
                                          .collect(Collectors.groupingBy(SimpleDrink::getType));
     var complexDrinks = complexDrinkService.getDrinks().stream()
+                                           .sorted(Comparator.comparing(ComplexDrink::getName))
                                            .collect(Collectors.groupingBy(ComplexDrink::getType));
     model.addAttribute("simpleDrinks", simpleDrinks)
          .addAttribute("complexDrinks", complexDrinks);
