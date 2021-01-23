@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 @Controller
@@ -36,6 +37,7 @@ public class AdminReplenishmentController {
                                       .map(drink -> new ReplenishmentPositionModel(drink.getName(),
                                                                                    drinkStocks.get(drink.getId()),
                                                                                    0))
+                                      .sorted(Comparator.comparing(ReplenishmentPositionModel::getName))
                                       .collect(Collectors.toList());
     model.addAttribute("model", new ReplenishmentModel(drinksMap))
          .addAttribute("saved", false);

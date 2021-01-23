@@ -1,6 +1,7 @@
 package de.othr.sw.benjamineder.barmanagement.application.web.admin;
 
 import de.othr.sw.benjamineder.barmanagement.application.rest.drinksondemand.DrinksOnDemandService;
+import de.othr.sw.benjamineder.barmanagement.application.util.MapCollectors;
 import de.othr.sw.benjamineder.barmanagement.application.web.auth.BarAdminAccess;
 import de.othr.sw.benjamineder.barmanagement.application.web.model.DrinksOnDemandOrderModel;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import othr.nec37329.beverageproducer.backend.rest.ArticleDTO;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -38,7 +40,8 @@ public class AdminDrinksOnDemandController {
   @GetMapping(path = "/order")
   public String adminDrinksOnDemandOrder(Model model) {
     var articles = drinksOnDemandService.getArticles().stream()
-                                        .collect(Collectors.toMap(ArticleDTO::getName, art -> 0));
+                                        .sorted(Comparator.comparing(ArticleDTO::getName))
+                                        .collect(MapCollectors.toKeySortedMap(ArticleDTO::getName, art -> 0));
     model.addAttribute("model", new DrinksOnDemandOrderModel(articles))
          .addAttribute("saved", false);
     return "admin/admin_drinks-on-demand_order";

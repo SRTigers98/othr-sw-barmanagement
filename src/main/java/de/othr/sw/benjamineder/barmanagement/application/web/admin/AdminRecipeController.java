@@ -12,10 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Comparator;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toMap;
+import static de.othr.sw.benjamineder.barmanagement.application.util.MapCollectors.toKeySortedMap;
 
 @Controller
 @RequestMapping("/admin/complex/{drinkId}/recipe")
@@ -75,14 +76,15 @@ public class AdminRecipeController {
 
   private Map<String, Integer> getComponentsMap(java.util.Optional<java.util.List<RecipeComponent>> recipeComponents) {
     return simpleDrinkService.getDrinks().stream()
-                             .collect(toMap(SimpleDrink::getName,
-                                            simpleDrink -> recipeComponents
-                                                .flatMap(compList -> compList.stream()
-                                                                             .filter(comp -> comp.getComponent().getId()
-                                                                                                 .equals(simpleDrink.getId()))
-                                                                             .findFirst())
-                                                .map(RecipeComponent::getQuantity)
-                                                .orElse(0)));
+                             .sorted(Comparator.comparing(SimpleDrink::getName))
+                             .collect(toKeySortedMap(SimpleDrink::getName,
+                                                     simpleDrink -> recipeComponents
+                                                         .flatMap(compList -> compList.stream()
+                                                                                      .filter(comp -> comp.getComponent().getId()
+                                                                                                          .equals(simpleDrink.getId()))
+                                                                                      .findFirst())
+                                                         .map(RecipeComponent::getQuantity)
+                                                         .orElse(0)));
   }
 
   @BarAdminAccess
