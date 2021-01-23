@@ -10,7 +10,7 @@
   </parent>
   <groupId>de.othr.sw.benjamineder.barmanagement</groupId>
   <artifactId>sw-barmanagement</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <version>1.0.0</version>
   <name>sw-barmanagement</name>
   <description>Barmanagement project for SW 2020/21</description>
 
