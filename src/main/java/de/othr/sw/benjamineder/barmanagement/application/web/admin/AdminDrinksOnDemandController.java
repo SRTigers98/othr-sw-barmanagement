@@ -31,7 +31,9 @@ public class AdminDrinksOnDemandController {
   @BarAdminAccess
   @GetMapping
   public String adminDrinksOnDemandArticles(Model model) {
-    var articles = drinksOnDemandService.getArticles();
+    var articles = drinksOnDemandService.getArticles().stream()
+                                        .sorted(Comparator.comparing(ArticleDTO::getName))
+                                        .collect(Collectors.toList());
     model.addAttribute("articles", articles);
     return "admin/admin_drinks-on-demand";
   }
