@@ -39,6 +39,7 @@ public class AdminRecipeController {
   public String adminComplexDrinkRecipe(@PathVariable("drinkId") String drinkId, Model model) {
     var recipe = complexDrinkService.getRecipeForDrink(drinkId)
                                     .orElseGet(DrinkRecipe::new);
+    recipe.getComponents().sort(Comparator.comparing(comp -> comp.getComponent().getName()));
     model.addAttribute(DRINK_ID, drinkId)
          .addAttribute("recipe", recipe)
          .addAttribute(SAVED, false);
