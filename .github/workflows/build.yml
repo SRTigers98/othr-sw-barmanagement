@@ -4,7 +4,7 @@ on:
   push:
     branches: [ develop ]
   pull_request:
-    branches: [ develop ]
+    branches: [ release/** ]
 
 jobs:
   build:
@@ -12,19 +12,19 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v2
-    - name: Setup Java JDK
-      uses: actions/setup-java@v1.4.3
-      with:
-        java-version: 14
-    - name: Clean Install
-      run: ./mvnw clean install -Dmaven.test.skip=true
-    - name: Test
-      run: ./mvnw test
-    - name: Package
-      run: ./mvnw clean package spring-boot:repackage -Dmaven.test.skip=true
-    - name: Upload Server Jar
-      uses: actions/upload-artifact@v2.2.2
-      with:
-        name: sw-barmanagement
-        path: ./target/sw-barmanagement-*.jar
+      - uses: actions/checkout@v2
+      - name: Setup Java JDK
+        uses: actions/setup-java@v1.4.3
+        with:
+          java-version: 14
+      - name: Clean Install
+        run: ./mvnw clean install -Dmaven.test.skip=true
+      - name: Test
+        run: ./mvnw test
+      - name: Package
+        run: ./mvnw clean package spring-boot:repackage -Dmaven.test.skip=true
+      - name: Upload Server Jar
+        uses: actions/upload-artifact@v2.2.2
+        with:
+          name: sw-barmanagement
+          path: ./target/sw-barmanagement-*.jar
