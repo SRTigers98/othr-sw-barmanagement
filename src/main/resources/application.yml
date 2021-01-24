@@ -1,1 +1,13 @@
-
+spring:
+  profiles:
+    active: prod
+othr:
+  oth-auth:
+    host: http://im-codd.oth-regensburg.de:8931
+    api-key: b4592698e2e5687d1f38d668417e27cf
+  warehouse:
+    host: http://im-codd.oth-regensburg.de:8950
+    customer-number: "00000001"
+  drinks-on-demand:
+    host: http://im-codd.oth-regensburg.de:8947
+    customer-id: 93d70a8a-3a52-456e-864e-870393774d81
