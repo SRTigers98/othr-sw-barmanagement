@@ -5,6 +5,9 @@ import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+
 @Service
 public class CouponService {
 
@@ -15,6 +18,7 @@ public class CouponService {
     this.couponRepository = couponRepository;
   }
 
+  @Transactional(TxType.REQUIRED)
   public Coupon redeemCoupon(String couponId) {
     var coupon = couponRepository.findById(couponId)
                                  .orElseThrow(() -> new IllegalArgumentException(String.format("Coupon with id %s does not exist!", couponId)));

@@ -3,9 +3,12 @@ package de.othr.sw.benjamineder.barmanagement.application.order.service;
 import de.othr.sw.benjamineder.barmanagement.application.order.dao.DrinkOrderRepository;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.DrinkOrder;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.OrderPosition;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+import java.util.List;
 
 @Service
 public class DrinkOrderService {
@@ -21,6 +24,7 @@ public class DrinkOrderService {
     return drinkOrderRepository.findAll();
   }
 
+  @Transactional(TxType.REQUIRED)
   public DrinkOrder order(List<OrderPosition> orderPositions) {
     var order = new DrinkOrder();
     order.setOrderPositions(orderPositions);

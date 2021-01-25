@@ -4,6 +4,8 @@ import de.othr.sw.benjamineder.barmanagement.application.drink.entity.Drink;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.util.Assert;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
 import java.util.List;
 import java.util.Optional;
 
@@ -23,11 +25,13 @@ public abstract class DrinkService<T extends Drink> {
     return drinkRepository.findById(drinkId);
   }
 
+  @Transactional(TxType.REQUIRED)
   public T addOrUpdateDrink(T drink) {
     Assert.notNull(drink, "Drink must not be null!");
     return drinkRepository.save(drink);
   }
 
+  @Transactional(TxType.REQUIRED)
   public T deleteDrink(String drinkId) {
     Assert.notNull(drinkId, "ID of Drink must not be null!");
     var drinkToDelete = drinkRepository.findById(drinkId)
