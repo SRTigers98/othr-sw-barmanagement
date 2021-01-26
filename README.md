@@ -28,3 +28,8 @@ Barmanagement project for the course Software Development (SW) at the OTH Regens
 
 Für alle Beans wurde der Scope beim Default Wert *Singleton* belassen, da dieser für alle Beans des Projektes problemlos
 verwendet werden kann.
+
+## Login
+
+Die Authentifizierung von einem Partner-Projekt abhängt, ist der Login bei Ausfall dieses Projektes nicht möglich.
+Da ohne Authentifizierung ein Zugang zum Frontend nicht möglich sein soll, kann die App in diesem Fall nicht bedient werden.
