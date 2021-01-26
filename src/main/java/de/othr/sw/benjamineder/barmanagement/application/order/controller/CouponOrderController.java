@@ -25,9 +25,7 @@ public class CouponOrderController {
 
   @PostMapping
   public String postCouponOrder(@RequestParam("value") Double couponValue) {
-    return couponOrderService.orderCoupon(couponValue)
-                             .getCoupon()
-                             .getId();
+    return couponOrderService.order(couponValue);
   }
 
   @GetMapping(path = "/revenue")
