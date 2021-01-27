@@ -1,14 +1,18 @@
 package de.othr.sw.benjamineder.barmanagement.application.order.service;
 
 import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
+import de.othr.sw.benjamineder.barmanagement.application.order.api.CouponOrderApi;
 import de.othr.sw.benjamineder.barmanagement.application.order.dao.CouponOrderRepository;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.CouponOrder;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
+import javax.transaction.Transactional.TxType;
+import java.util.List;
+
 @Service
-public class CouponOrderService {
+public class CouponOrderService implements CouponOrderApi {
 
   private final CouponOrderRepository couponOrderRepository;
 
@@ -21,6 +25,7 @@ public class CouponOrderService {
     return couponOrderRepository.findAll();
   }
 
+  @Transactional(TxType.REQUIRED)
   public CouponOrder orderCoupon(Double value) {
     var coupon = new Coupon();
     coupon.setValue(value);
@@ -28,6 +33,12 @@ public class CouponOrderService {
     var couponOrder = new CouponOrder();
     couponOrder.setCoupon(coupon);
     return couponOrderRepository.save(couponOrder);
+  }
+
+  @Transactional(TxType.REQUIRED)
+  @Override
+  public String order(Double value) {
+    return this.orderCoupon(value).getCoupon().getId();
   }
 
   public Double getCouponOrdersRevenue() {

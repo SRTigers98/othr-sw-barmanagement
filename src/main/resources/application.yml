@@ -10,4 +10,4 @@ othr:
     customer-number: "00000001"
   drinks-on-demand:
     host: http://im-codd.oth-regensburg.de:8947
-    customer-id: 93d70a8a-3a52-456e-864e-870393774d81
+    customer-id: "00000001"

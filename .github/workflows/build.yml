@@ -1,4 +1,4 @@
-name: Barmanagement CI
+name: Build
 
 on:
   push:
@@ -17,10 +17,10 @@ jobs:
         uses: actions/setup-java@v1.4.3
         with:
           java-version: 14
-      - name: Clean Install
-        run: ./mvnw clean install -Dmaven.test.skip=true
+      - name: Compile
+        run: ./mvnw clean compile
       - name: Test
-        run: ./mvnw test
+        run: ./mvnw clean test
       - name: Package
         run: ./mvnw clean package spring-boot:repackage -Dmaven.test.skip=true
       - name: Upload Server Jar

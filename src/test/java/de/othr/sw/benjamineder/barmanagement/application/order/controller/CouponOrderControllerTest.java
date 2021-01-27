@@ -1,6 +1,5 @@
 package de.othr.sw.benjamineder.barmanagement.application.order.controller;
 
-import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.CouponOrder;
 import de.othr.sw.benjamineder.barmanagement.application.order.service.CouponOrderService;
 import org.junit.jupiter.api.Test;
@@ -40,13 +39,9 @@ class CouponOrderControllerTest {
   void postCouponOrderTest() {
     var couponValue = 42.0;
 
-    var couponOrder = mock(CouponOrder.class);
-    var coupon = mock(Coupon.class);
     var couponId = UUID.randomUUID().toString();
 
-    when(couponOrderService.orderCoupon(couponValue)).thenReturn(couponOrder);
-    when(couponOrder.getCoupon()).thenReturn(coupon);
-    when(coupon.getId()).thenReturn(couponId);
+    when(couponOrderService.order(couponValue)).thenReturn(couponId);
 
     var result = tested.postCouponOrder(couponValue);
 

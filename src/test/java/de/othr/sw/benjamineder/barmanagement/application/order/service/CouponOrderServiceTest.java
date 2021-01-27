@@ -1,23 +1,23 @@
 package de.othr.sw.benjamineder.barmanagement.application.order.service;
 
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
-
+import de.othr.sw.benjamineder.barmanagement.application.coupon.entity.Coupon;
 import de.othr.sw.benjamineder.barmanagement.application.order.dao.CouponOrderRepository;
 import de.othr.sw.benjamineder.barmanagement.application.order.entity.CouponOrder;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentCaptor;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+
+import java.util.List;
+import java.util.UUID;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.notNullValue;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
 class CouponOrderServiceTest {
@@ -59,6 +59,25 @@ class CouponOrderServiceTest {
     assertThat(order.getCoupon().getId(), is(notNullValue()));
     assertThat(order.getCoupon().getValue(), is(couponValue));
     assertThat(order.getCoupon().isRedeemable(), is(true));
+  }
+
+  @Test
+  void orderTest() {
+    var tested = spy(this.tested);
+
+    var value = 42.0;
+
+    var couponOrder = mock(CouponOrder.class);
+    var coupon = mock(Coupon.class);
+    var couponId = UUID.randomUUID().toString();
+
+    doReturn(couponOrder).when(tested).orderCoupon(value);
+    when(couponOrder.getCoupon()).thenReturn(coupon);
+    when(coupon.getId()).thenReturn(couponId);
+
+    var result = tested.order(value);
+
+    assertThat(result, is(couponId));
   }
 
   @Test
